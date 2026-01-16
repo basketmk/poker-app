@@ -20,7 +20,15 @@ function App() {
     },
   ];
 
-  const Record = (props) => {
+  type Props = {
+    id: string;
+    date: string;
+    name: string;
+    buyIn: number;
+    buyOut: number;
+  };
+
+  const Record = (props: Props) => {
     return (
       <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
         <p className="text-sm">{props.date}</p>
@@ -44,7 +52,8 @@ function App() {
     return (
       <Record
         key={record.id}
-        data={record.date}
+        id={record.id}
+        date={record.date}
         name={record.name}
         buyIn={record.buyIn}
         buyOut={record.buyOut}
