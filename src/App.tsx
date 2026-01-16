@@ -26,15 +26,16 @@ function App() {
     name: string;
     buyIn: number;
     buyOut: number;
+    onDelete: () => void;
   };
 
   const Record = (props: Props) => {
     const profit = props.buyOut - props.buyIn;
-    const isITM: boolean = profit > 0;
+    const isITM: boolean = props.buyOut > 0;
     return (
       <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left gap-3 flex">
         {/* ==============トーナメント内容============== */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <div className="flex gap-3 items-center">
             <p className="text-sm">{props.date}</p>
             {isITM && (
@@ -77,12 +78,20 @@ function App() {
           </div>
         </div>
         {/* ==============削除ボタン============== */}
-        <button className="shrink-0 text-xl leading-none">×</button>
+        <button
+          type="button"
+          className="shrink-0 text-xl leading-none"
+          onClick={props.onDelete}
+        >
+          ×
+        </button>
       </div>
     );
   };
 
-  const recordList = dummyRecords.map((record) => {
+  const [records, setRecords] = useState(dummyRecords);
+
+  const recordList = records.map((record) => {
     return (
       <Record
         key={record.id}
@@ -91,6 +100,9 @@ function App() {
         name={record.name}
         buyIn={record.buyIn}
         buyOut={record.buyOut}
+        onDelete={() =>
+          setRecords((prev) => prev.filter((r) => r.id !== record.id))
+        }
       />
     );
   });
