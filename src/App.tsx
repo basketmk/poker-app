@@ -30,44 +30,54 @@ function App() {
 
   const Record = (props: Props) => {
     const profit = props.buyOut - props.buyIn;
+    const isITM: boolean = profit > 0;
     return (
-      <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
-        <p className="text-sm">{props.date}</p>
-        <p>{props.name}</p>
-        <div className="grid grid-cols-3">
-          <div className="text-left text-sm flex">
-            <p>Buy-in:</p>
-            <p className="pl-1 text-red-500">${props.buyIn}</p>
+      <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left gap-3 flex">
+        {/* ==============トーナメント内容============== */}
+        <div className="flex-1">
+          <div className="flex gap-3 items-center">
+            <p className="text-sm">{props.date}</p>
+            {isITM && (
+              <p className="rounded text-xs ring ring-black px-1 py-0.5">ITM</p>
+            )}
           </div>
-          <div className="text-left text-sm flex">
-            <p>Buy-out:</p>
-            <p
-              className={`pl-1 ${
-                props.buyOut > 0 ? "text-green-500" : "text-black"
-              }`}
-            >
-              {" "}
-              ${props.buyOut}
-            </p>
-          </div>
-          <div className="items-center">
+          <p>{props.name}</p>
+          <div className="grid grid-cols-3">
             <div className="text-left text-sm flex">
-              <p>収支:</p>
+              <p>Buy-in:</p>
+              <p className="pl-1 text-red-500">${props.buyIn}</p>
+            </div>
+            <div className="text-left text-sm flex">
+              <p>Buy-out:</p>
               <p
                 className={`pl-1 ${
-                  profit > 0
-                    ? "text-green-500"
-                    : profit < 0
-                    ? "text-red-500"
-                    : "text-black"
+                  props.buyOut > 0 ? "text-green-500" : "text-black"
                 }`}
               >
-                {profit >= 0 ? "+" : ""}
-                {profit}
+                ${props.buyOut}
               </p>
+            </div>
+            <div className="items-center">
+              <div className="text-left text-sm flex">
+                <p>収支:</p>
+                <p
+                  className={`pl-1 ${
+                    profit > 0
+                      ? "text-green-500"
+                      : profit < 0
+                      ? "text-red-500"
+                      : "text-black"
+                  }`}
+                >
+                  {profit >= 0 ? "+" : ""}
+                  {profit}
+                </p>
+              </div>
             </div>
           </div>
         </div>
+        {/* ==============削除ボタン============== */}
+        <button className="shrink-0 text-xl leading-none">×</button>
       </div>
     );
   };
@@ -122,16 +132,19 @@ function App() {
           <p className="text-left ring rounded-xl p-2 ">2026/01/16</p>
           <p className="text-left p-2">トーナメント名</p>
           <p className="text-left ring rounded-xl p-2 ">Daily $50 NLH</p>
-          <div className="grid grid-cols-2">
-            <div className="text-left p-2">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="text-left">
               <p className="text-left p-2">Buy-in (USD)</p>
               <p className="text-left ring rounded-xl p-2 ">550</p>
             </div>
-            <div className="text-left p-2">
+            <div className="text-left">
               <p className="text-left p-2">Buy-out (USD)</p>
               <p className="text-left ring rounded-xl p-2 ">6700</p>
             </div>
           </div>
+          <button className="ring rounded-xl min-w-full p-2 mt-4 bg-green-300">
+            登録する
+          </button>
         </div>
       </div>
       {/* ==============履歴一覧==============*/}
