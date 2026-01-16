@@ -100,9 +100,12 @@ function App() {
         name={record.name}
         buyIn={record.buyIn}
         buyOut={record.buyOut}
-        onDelete={() =>
-          setRecords((prev) => prev.filter((r) => r.id !== record.id))
-        }
+        onDelete={() => {
+          if (!confirm(`${record.name} を削除しますか？`)) {
+            return;
+          }
+          setRecords((prev) => prev.filter((r) => r.id !== record.id));
+        }}
       />
     );
   });
