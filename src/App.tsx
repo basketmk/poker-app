@@ -29,6 +29,7 @@ function App() {
   };
 
   const Record = (props: Props) => {
+    const profit = props.buyIn - props.buyOut;
     return (
       <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
         <p className="text-sm">{props.date}</p>
@@ -41,7 +42,7 @@ function App() {
             <p>Buy-out: ${props.buyOut}</p>
           </div>
           <div className="text-left text-sm">
-            <p>収支: +270</p>
+            <p>収支: {profit}</p>
           </div>
         </div>
       </div>
@@ -90,6 +91,7 @@ function App() {
           <p>$300</p>
         </div>
       </div>
+      {/* ==============新規登録フォーム============== */}
       <div>
         <div className="border-b p-4">＋新規登録</div>
         <div>
@@ -109,6 +111,7 @@ function App() {
           </div>
         </div>
       </div>
+      {/* ==============履歴一覧==============*/}
       <div>
         <div className="border-b p-4">履歴一覧</div>
         {recordList}
