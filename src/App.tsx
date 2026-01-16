@@ -29,6 +29,9 @@ function App() {
     onDelete: () => void;
   };
 
+  {
+    /* ==============履歴一覧用==============*/
+  }
   const Record = (props: Props) => {
     const profit = props.buyOut - props.buyIn;
     const isITM: boolean = props.buyOut > 0;
@@ -110,6 +113,8 @@ function App() {
     );
   });
 
+  const totalProfit = records.reduce((sum, r) => sum + (r.buyOut - r.buyIn), 0);
+
   return (
     <div className="">
       <h1 className="flex items-center justify-center p-4 text-2xl border-b">
@@ -118,7 +123,18 @@ function App() {
       <div className="grid grid-cols-2">
         <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
           <p>トータル収支</p>
-          <p>+3500 USD</p>
+          <p
+            className={`${
+              totalProfit > 0
+                ? "text-green-500"
+                : totalProfit < 0
+                ? "text-red-500"
+                : "text-black"
+            }`}
+          >
+            {totalProfit >= 0 ? "+" : ""}
+            {totalProfit} USD
+          </p>
         </div>
         <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
           <p>インマネ率</p>
