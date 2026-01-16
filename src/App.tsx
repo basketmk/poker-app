@@ -41,14 +41,25 @@ function App() {
           </div>
           <div className="text-left text-sm flex">
             <p>Buy-out:</p>
-            <p className="pl-1 text-green-500"> ${props.buyOut}</p>
+            <p
+              className={`pl-1 ${
+                props.buyOut > 0 ? "text-green-500" : "text-black"
+              }`}
+            >
+              {" "}
+              ${props.buyOut}
+            </p>
           </div>
           <div className="items-center">
             <div className="text-left text-sm flex">
               <p>収支:</p>
               <p
                 className={`pl-1 ${
-                  profit >= 0 ? "text-green-500" : "text-red-500"
+                  profit > 0
+                    ? "text-green-500"
+                    : profit < 0
+                    ? "text-red-500"
+                    : "text-black"
                 }`}
               >
                 {profit >= 0 ? "+" : ""}
