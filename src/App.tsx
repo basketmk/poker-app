@@ -3,6 +3,55 @@ import "./App.css";
 import { useForm } from "react-hook-form";
 
 function App() {
+  const dummyRecords = [
+    {
+      id: "1",
+      date: "2026/1/16",
+      name: "Daily $50 NLH",
+      buyIn: 50,
+      buyOut: 320,
+    },
+    {
+      id: "2",
+      date: "2026/1/16",
+      name: "Weekly $100 Tournament",
+      buyIn: 100,
+      buyOut: -100,
+    },
+  ];
+
+  const Record = (props) => {
+    return (
+      <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
+        <p className="text-sm">{props.date}</p>
+        <p>{props.name}</p>
+        <div className="grid grid-cols-3">
+          <div className="text-left text-sm">
+            <p>Buy-in: ${props.buyIn}</p>
+          </div>
+          <div className="text-left text-sm">
+            <p>Buy-out: ${props.buyOut}</p>
+          </div>
+          <div className="text-left text-sm">
+            <p>収支: +270</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const recordList = dummyRecords.map((record) => {
+    return (
+      <Record
+        key={record.id}
+        data={record.date}
+        name={record.name}
+        buyIn={record.buyIn}
+        buyOut={record.buyOut}
+      />
+    );
+  });
+
   return (
     <div className="">
       <h1 className="flex items-center justify-center p-4 text-2xl border-b">
@@ -53,36 +102,7 @@ function App() {
       </div>
       <div>
         <div className="border-b p-4">履歴一覧</div>
-        <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
-          <p className="text-sm">2026/1/16</p>
-          <p>Daily $50 NLH</p>
-          <div className="grid grid-cols-3">
-            <div className="text-left text-sm">
-              <p>Buy-in: $50</p>
-            </div>
-            <div className="text-left text-sm">
-              <p>Buy-out: $320</p>
-            </div>
-            <div className="text-left text-sm">
-              <p>収支: +270</p>
-            </div>
-          </div>
-        </div>
-        <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
-          <p className="text-sm">2026/1/16</p>
-          <p>Daily $50 NLH</p>
-          <div className="grid grid-cols-3">
-            <div className="text-left text-sm">
-              <p>Buy-in: $50</p>
-            </div>
-            <div className="text-left text-sm">
-              <p>Buy-out: $320</p>
-            </div>
-            <div className="text-left text-sm">
-              <p>収支: +270</p>
-            </div>
-          </div>
-        </div>
+        {recordList}
       </div>
     </div>
   );
