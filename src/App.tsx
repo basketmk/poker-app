@@ -16,7 +16,7 @@ function App() {
       date: "2026/1/16",
       name: "Weekly $100 Tournament",
       buyIn: 100,
-      buyOut: -100,
+      buyOut: 0,
     },
   ];
 
@@ -29,20 +29,32 @@ function App() {
   };
 
   const Record = (props: Props) => {
-    const profit = props.buyIn - props.buyOut;
+    const profit = props.buyOut - props.buyIn;
     return (
       <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
         <p className="text-sm">{props.date}</p>
         <p>{props.name}</p>
         <div className="grid grid-cols-3">
-          <div className="text-left text-sm">
-            <p>Buy-in: ${props.buyIn}</p>
+          <div className="text-left text-sm flex">
+            <p>Buy-in:</p>
+            <p className="pl-1 text-red-500">${props.buyIn}</p>
           </div>
-          <div className="text-left text-sm">
-            <p>Buy-out: ${props.buyOut}</p>
+          <div className="text-left text-sm flex">
+            <p>Buy-out:</p>
+            <p className="pl-1 text-green-500"> ${props.buyOut}</p>
           </div>
-          <div className="text-left text-sm">
-            <p>収支: {profit}</p>
+          <div className="items-center">
+            <div className="text-left text-sm flex">
+              <p>収支:</p>
+              <p
+                className={`pl-1 ${
+                  profit >= 0 ? "text-green-500" : "text-red-500"
+                }`}
+              >
+                {profit >= 0 ? "+" : ""}
+                {profit}
+              </p>
+            </div>
           </div>
         </div>
       </div>
