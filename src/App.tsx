@@ -92,7 +92,15 @@ function App() {
     );
   };
 
-  const [records, setRecords] = useState(dummyRecords);
+  type recordItems = {
+    id: string;
+    date: string;
+    name: string;
+    buyIn: number;
+    buyOut: number;
+  };
+
+  const [records, setRecords] = useState<recordItems[]>(dummyRecords);
 
   const recordList = records.map((record) => {
     return (
@@ -112,8 +120,14 @@ function App() {
       />
     );
   });
-
+  {
+    /*==============トータル収支============== */
+  }
   const totalProfit = records.reduce((sum, r) => sum + (r.buyOut - r.buyIn), 0);
+  {
+    /*=============トータル賞金=============== */
+  }
+  const totalPrize = records.reduce((sum, r) => sum + r.buyOut, 0);
 
   return (
     <div className="">
@@ -144,7 +158,7 @@ function App() {
       <div className="grid grid-cols-3">
         <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
           <p>トータル賞金</p>
-          <p>$10,000 USD</p>
+          <p className="text-yellow-600">${totalPrize}</p>
         </div>
         <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
           <p>最大賞金</p>
