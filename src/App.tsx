@@ -3,23 +3,6 @@ import "./App.css";
 import { useForm } from "react-hook-form";
 
 function App() {
-  const dummyRecords = [
-    {
-      id: "1",
-      date: "2026/1/16",
-      name: "Daily $50 NLH",
-      buyIn: 50,
-      buyOut: 320,
-    },
-    {
-      id: "2",
-      date: "2026/1/16",
-      name: "Weekly $100 Tournament",
-      buyIn: 100,
-      buyOut: 0,
-    },
-  ];
-
   type Props = {
     id: string;
     date: string;
@@ -100,7 +83,7 @@ function App() {
     buyOut: number;
   };
 
-  const [records, setRecords] = useState<RecordItems[]>(dummyRecords);
+  const [records, setRecords] = useState<RecordItems[]>([]);
 
   const recordList = records.map((record) => {
     return (
@@ -150,7 +133,7 @@ function App() {
     /*=============ROI=========== */
   }
   const ROI =
-    records.length === 0
+    totalBuyIn === 0
       ? "0.0"
       : (((totalPrize - totalBuyIn) / totalBuyIn) * 100).toFixed(1);
 
