@@ -128,7 +128,15 @@ function App() {
     /*=============トータル賞金=============== */
   }
   const totalPrize = records.reduce((sum, r) => sum + r.buyOut, 0);
-
+  {
+    /*=============最大賞金=========== */
+  }
+  const maxPrize = records.reduce((max, r) => Math.max(max, r.buyOut), 0);
+  {
+    /*=============平均buy-in=========== */
+  }
+  const totalBuyIn = records.reduce((sum, r) => sum + r.buyIn, 0);
+  const averageBuyIn = Math.round(totalBuyIn / records.length);
   return (
     <div className="">
       <h1 className="flex items-center justify-center p-4 text-2xl border-b">
@@ -162,11 +170,11 @@ function App() {
         </div>
         <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
           <p>最大賞金</p>
-          <p>$25,000</p>
+          <p className="text-yellow-600">${maxPrize}</p>
         </div>
         <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
           <p>平均buy-in</p>
-          <p>$300</p>
+          <p>${averageBuyIn}</p>
         </div>
       </div>
       {/* ==============新規登録フォーム============== */}
