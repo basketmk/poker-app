@@ -92,7 +92,7 @@ function App() {
     );
   };
 
-  type recordItems = {
+  type RecordItems = {
     id: string;
     date: string;
     name: string;
@@ -100,7 +100,7 @@ function App() {
     buyOut: number;
   };
 
-  const [records, setRecords] = useState<recordItems[]>(dummyRecords);
+  const [records, setRecords] = useState<RecordItems[]>(dummyRecords);
 
   const recordList = records.map((record) => {
     return (
@@ -142,11 +142,46 @@ function App() {
     /*=============インマネ率=========== */
   }
   const itmCount = records.filter((r) => r.buyOut > 0).length;
-  const itmRate = ((itmCount / records.length) * 100).toFixed(1);
+  const itmRate =
+    records.length === 0
+      ? "0.0"
+      : ((itmCount / records.length) * 100).toFixed(1);
   {
     /*=============ROI=========== */
   }
-  const ROI = (((totalPrize - totalBuyIn) / totalBuyIn) * 100).toFixed(1);
+  const ROI =
+    records.length === 0
+      ? "0.0"
+      : (((totalPrize - totalBuyIn) / totalBuyIn) * 100).toFixed(1);
+
+  {
+    /* ==============入力フォーム==============*/
+  }
+  type FormValues = {
+    date: string;
+    name: string;
+    buyIn: number;
+    buyOut: number;
+  };
+  const { register, handleSubmit, reset } = useForm<FormValues>();
+  const onSubmit = (values: FormValues) => {
+    const buyInNum = Number(values.buyIn);
+    const buyOutNum = Number(values.buyOut);
+    const date = values.date.trim();
+    const name = values.name.trim();
+    if (!date || !name) return;
+    if (Number.isNaN(values.buyIn) || Number.isNaN(values.buyOut)) return;
+
+    const newRecords: RecordItems = {
+      id: crypto.randomUUID(),
+      date: values.date,
+      name: values.name,
+      buyIn: buyInNum,
+      buyOut: buyOutNum,
+    };
+    setRecords((prev) => [newRecords, ...prev]);
+    reset();
+  };
 
   return (
     <div className="">
