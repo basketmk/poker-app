@@ -83,7 +83,12 @@ function App() {
     buyOut: number;
   };
 
-  const [records, setRecords] = useState<RecordItems[]>([]);
+  const STORAGE_KEY = "poker_record";
+  const [records, setRecords] = useState<RecordItems[]>(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) return [];
+    return JSON.parse(stored) as RecordItems[];
+  });
 
   const recordList = records.map((record) => {
     return (
@@ -162,7 +167,12 @@ function App() {
       buyIn: buyInNum,
       buyOut: buyOutNum,
     };
-    setRecords((prev) => [newRecords, ...prev]);
+    setRecords((prev) => {
+      const newData = [newRecords, ...prev];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+      return newData;
+    });
+
     reset();
   };
 
@@ -245,7 +255,10 @@ function App() {
               />
             </div>
           </div>
-          <button className="ring rounded-xl min-w-full p-2 mt-4 bg-green-300">
+          <button
+            type="submit"
+            className="ring rounded-xl min-w-full p-2 mt-4 bg-green-300"
+          >
             登録する
           </button>
         </form>
