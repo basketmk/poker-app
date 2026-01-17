@@ -232,7 +232,7 @@ function App() {
       {/* ==============新規登録フォーム============== */}
       <div>
         <div className="border-b p-4">＋新規登録</div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <p className="text-left p-2">日付</p>
           <input
             type="date"
