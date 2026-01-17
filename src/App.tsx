@@ -138,6 +138,15 @@ function App() {
   const totalBuyIn = records.reduce((sum, r) => sum + r.buyIn, 0);
   const averageBuyIn =
     records.length === 0 ? 0 : Math.round(totalBuyIn / records.length);
+  {
+    /*=============インマネ率=========== */
+  }
+  const itmCount = records.filter((r) => r.buyOut > 0).length;
+  const itmRate = ((itmCount / records.length) * 100).toFixed(1);
+  {
+    /*=============ROI=========== */
+  }
+  const ROI = (((totalPrize - totalBuyIn) / totalBuyIn) * 100).toFixed(1);
 
   return (
     <div className="">
@@ -160,9 +169,15 @@ function App() {
             {totalProfit} USD
           </p>
         </div>
-        <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
-          <p>インマネ率</p>
-          <p>20%</p>
+        <div className="grid grid-cols-2">
+          <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
+            <p>インマネ率</p>
+            <p>{itmRate}%</p>
+          </div>
+          <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
+            <p>ROI</p>
+            <p>{ROI}%</p>
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-3">
