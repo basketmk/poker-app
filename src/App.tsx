@@ -160,8 +160,8 @@ function App() {
   type FormValues = {
     date: string;
     name: string;
-    buyIn: number;
-    buyOut: number;
+    buyIn: string;
+    buyOut: string;
   };
   const { register, handleSubmit, reset } = useForm<FormValues>();
   const onSubmit = (values: FormValues) => {
@@ -170,7 +170,7 @@ function App() {
     const date = values.date.trim();
     const name = values.name.trim();
     if (!date || !name) return;
-    if (Number.isNaN(values.buyIn) || Number.isNaN(values.buyOut)) return;
+    if (Number.isNaN(buyInNum) || Number.isNaN(buyOutNum)) return;
 
     const newRecords: RecordItems = {
       id: crypto.randomUUID(),
