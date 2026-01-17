@@ -232,25 +232,40 @@ function App() {
       {/* ==============新規登録フォーム============== */}
       <div>
         <div className="border-b p-4">＋新規登録</div>
-        <div>
+        <form>
           <p className="text-left p-2">日付</p>
-          <p className="text-left ring rounded-xl p-2 ">2026/01/16</p>
+          <input
+            type="date"
+            className="text-left ring rounded-xl p-2 min-w-full"
+            {...register("date")}
+          />
           <p className="text-left p-2">トーナメント名</p>
-          <p className="text-left ring rounded-xl p-2 ">Daily $50 NLH</p>
+          <input
+            className="text-left ring rounded-xl p-2 min-w-full"
+            {...register("name")}
+          />
           <div className="grid grid-cols-2 gap-3">
             <div className="text-left">
               <p className="text-left p-2">Buy-in (USD)</p>
-              <p className="text-left ring rounded-xl p-2 ">550</p>
+              <input
+                type="number"
+                className="text-left ring rounded-xl p-2 min-w-full"
+                {...register("buyIn")}
+              />
             </div>
             <div className="text-left">
               <p className="text-left p-2">Buy-out (USD)</p>
-              <p className="text-left ring rounded-xl p-2 ">6700</p>
+              <input
+                type="number"
+                className="text-left ring rounded-xl p-2 min-w-full"
+                {...register("buyOut")}
+              />
             </div>
           </div>
           <button className="ring rounded-xl min-w-full p-2 mt-4 bg-green-300">
             登録する
           </button>
-        </div>
+        </form>
       </div>
       {/* ==============履歴一覧==============*/}
       <div>
