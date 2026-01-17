@@ -136,7 +136,9 @@ function App() {
     /*=============平均buy-in=========== */
   }
   const totalBuyIn = records.reduce((sum, r) => sum + r.buyIn, 0);
-  const averageBuyIn = Math.round(totalBuyIn / records.length);
+  const averageBuyIn =
+    records.length === 0 ? 0 : Math.round(totalBuyIn / records.length);
+
   return (
     <div className="">
       <h1 className="flex items-center justify-center p-4 text-2xl border-b">
