@@ -82,67 +82,73 @@ function App() {
         ポーカー収支管理アプリ
       </h1>
       <Summary records={records} />
-      {/* ==============新規登録フォーム============== */}
       <div>
-        <button
-          onClick={setFormScreen}
-          className="border-b p-4 min-w-full cursor-pointer"
-        >
-          ＋新規登録
-        </button>
-        {screen === "form" && (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <p className="text-left p-2">日付</p>
-            <input
-              type="date"
-              className="text-left ring rounded-xl p-2 min-w-full"
-              {...register("date")}
-            />
-            <p className="text-left p-2">トーナメント名</p>
-            <input
-              className="text-left ring rounded-xl p-2 min-w-full"
-              {...register("name")}
-            />
-            <div className="grid grid-cols-2 gap-3">
-              <div className="text-left">
-                <p className="text-left p-2">Buy-in (USD)</p>
-                <input
-                  type="number"
-                  className="text-left ring rounded-xl p-2 min-w-full"
-                  {...register("buyIn")}
-                />
-              </div>
-              <div className="text-left">
-                <p className="text-left p-2">Buy-out (USD)</p>
-                <input
-                  type="number"
-                  className="text-left ring rounded-xl p-2 min-w-full"
-                  {...register("buyOut")}
-                />
-              </div>
-            </div>
-            <button
-              type="submit"
-              className="ring rounded-xl min-w-full p-2 mt-4 bg-green-300"
-            >
-              登録する
-            </button>
-          </form>
-        )}
+        <div className="grid grid-cols-2">
+          <button
+            onClick={setTmListScreen}
+            className="border-b p-4 min-w-full cursor-pointer"
+          >
+            履歴一覧
+          </button>
+          <button
+            onClick={setFormScreen}
+            className="border-b p-4 min-w-full cursor-pointer"
+          >
+            ＋新規登録
+          </button>
+        </div>
       </div>
-      {/* ==============履歴一覧==============*/}
       <div>
-        <button
-          onClick={setTmListScreen}
-          className="border-b p-4 min-w-full cursor-pointer"
-        >
-          履歴一覧
-        </button>
-        {screen === "tmList" && (
-          <>
-            <RecordList records={records} onDelete={handleDelete} />
-          </>
-        )}
+        <div>
+          {screen === "tmList" && (
+            <>
+              <RecordList records={records} onDelete={handleDelete} />
+            </>
+          )}
+        </div>
+        {/* ==============新規登録フォーム============== */}
+        <div>
+          {screen === "form" && (
+            <form onSubmit={handleSubmit(onSubmit)} className="">
+              <p className="text-left p-2">日付</p>
+              <input
+                type="date"
+                className="text-left ring rounded-xl p-2 min-w-full"
+                {...register("date")}
+              />
+              <p className="text-left p-2">トーナメント名</p>
+              <input
+                className="text-left ring rounded-xl p-2 min-w-full"
+                {...register("name")}
+              />
+              <div className="grid grid-cols-2 gap-3">
+                <div className="text-left">
+                  <p className="text-left p-2">Buy-in (USD)</p>
+                  <input
+                    type="number"
+                    className="text-left ring rounded-xl p-2 min-w-full"
+                    {...register("buyIn")}
+                  />
+                </div>
+                <div className="text-left">
+                  <p className="text-left p-2">Buy-out (USD)</p>
+                  <input
+                    type="number"
+                    className="text-left ring rounded-xl p-2 min-w-full"
+                    {...register("buyOut")}
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="ring rounded-xl min-w-full p-2 mt-4 bg-green-300"
+              >
+                登録する
+              </button>
+            </form>
+          )}
+        </div>
+        {/* ==============履歴一覧==============*/}
       </div>
     </div>
   );
