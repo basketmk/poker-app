@@ -1,79 +1,10 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { useForm } from "react-hook-form";
+import { RecordList } from "./components/RecordList";
+import type { RecordItems } from "./types/type";
 
 function App() {
-  type Props = {
-    id: string;
-    date: string;
-    name: string;
-    buyIn: number;
-    buyOut: number;
-    onDelete: void;
-  };
-
-  {
-    /* ==============履歴一覧用==============*/
-  }
-  const Record = (props: Props) => {
-    const profit = props.buyOut - props.buyIn;
-    const isITM: boolean = props.buyOut > 0;
-    return (
-      <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left gap-3 flex">
-        {/* ==============トーナメント内容============== */}
-        <div className="flex-1 min-w-0">
-          <div className="flex gap-3 items-center">
-            <p className="text-sm">{props.date}</p>
-            {isITM && (
-              <p className="rounded text-xs ring ring-black px-1 py-0.5">ITM</p>
-            )}
-          </div>
-          <p>{props.name}</p>
-          <div className="grid grid-cols-3">
-            <div className="text-left text-sm flex">
-              <p>Buy-in:</p>
-              <p className="pl-1 text-red-500">${props.buyIn}</p>
-            </div>
-            <div className="text-left text-sm flex">
-              <p>Buy-out:</p>
-              <p
-                className={`pl-1 ${
-                  props.buyOut > 0 ? "text-green-500" : "text-black"
-                }`}
-              >
-                ${props.buyOut}
-              </p>
-            </div>
-            <div className="items-center">
-              <div className="text-left text-sm flex">
-                <p>収支:</p>
-                <p
-                  className={`pl-1 ${
-                    profit > 0
-                      ? "text-green-500"
-                      : profit < 0
-                        ? "text-red-500"
-                        : "text-black"
-                  }`}
-                >
-                  {profit >= 0 ? "+" : ""}
-                  {profit}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* ==============削除ボタン============== */}
-        <button
-          type="button"
-          className="shrink-0 text-xl leading-none"
-          onClick={props.onDelete}
-        >
-          ×
-        </button>
-      </div>
-    );
-  };
   {
     /* ==============履歴削除用関数============== */
   }
@@ -87,14 +18,6 @@ function App() {
     });
   };
 
-  type RecordItems = {
-    id: string;
-    date: string;
-    name: string;
-    buyIn: number;
-    buyOut: number;
-  };
-
   const STORAGE_KEY = "poker_record";
   const [records, setRecords] = useState<RecordItems[]>(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -102,19 +25,6 @@ function App() {
     return JSON.parse(stored) as RecordItems[];
   });
 
-  const recordList = records.map((record) => {
-    return (
-      <Record
-        key={record.id}
-        id={record.id}
-        date={record.date}
-        name={record.name}
-        buyIn={record.buyIn}
-        buyOut={record.buyOut}
-        onDelete={() => handleDelete(record)}
-      />
-    );
-  });
   {
     /*==============トータル収支============== */
   }
@@ -142,13 +52,11 @@ function App() {
   }
   const itmCount = records.filter((r) => r.buyOut > 0).length;
   const itmRate =
-    records.length === 0
-      ? "0.0"
-      : ((itmCount / records.length) * 100).toFixed(1);
+    records.length === 0 ? "0.0" : ((itmCount / totalTmCount) * 100).toFixed(1);
   {
     /*=============ROI=========== */
   }
-  const ROI =
+  const Roi =
     totalBuyIn === 0
       ? "0.0"
       : (((totalPrize - totalBuyIn) / totalBuyIn) * 100).toFixed(1);
@@ -220,7 +128,7 @@ function App() {
           </div>
           <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
             <p>ROI</p>
-            <p>{ROI}%</p>
+            <p>{Roi}%</p>
           </div>
         </div>
       </div>
@@ -282,7 +190,7 @@ function App() {
       {/* ==============履歴一覧==============*/}
       <div>
         <div className="border-b p-4">履歴一覧</div>
-        {recordList}
+        <RecordList records={records} onDelete={handleDelete} />
       </div>
     </div>
   );
