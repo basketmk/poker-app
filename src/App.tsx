@@ -9,7 +9,7 @@ function App() {
     name: string;
     buyIn: number;
     buyOut: number;
-    onDelete: () => void;
+    onDelete: void;
   };
 
   {
@@ -74,6 +74,18 @@ function App() {
       </div>
     );
   };
+  {
+    /* ==============履歴削除用関数============== */
+  }
+  const handleDelete = (record: RecordItems) => {
+    if (!confirm(`${record.name} を削除しますか？`)) return;
+
+    setRecords((prev) => {
+      const newItems = prev.filter((r) => r.id !== record.id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
+      return newItems;
+    });
+  };
 
   type RecordItems = {
     id: string;
@@ -99,16 +111,7 @@ function App() {
         name={record.name}
         buyIn={record.buyIn}
         buyOut={record.buyOut}
-        onDelete={() => {
-          if (!confirm(`${record.name} を削除しますか？`)) {
-            return;
-          }
-          setRecords((prev) => {
-            const newItems = prev.filter((r) => r.id !== record.id);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
-            return newItems;
-          });
-        }}
+        onDelete={() => handleDelete(record)}
       />
     );
   });
