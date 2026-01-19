@@ -7,6 +7,7 @@ import type { RecordItems } from "./types/type";
 import type { FormValues } from "./types/type";
 
 function App() {
+  const STORAGE_KEY = "poker_record";
   {
     /* ==============履歴削除用関数============== */
   }
@@ -20,7 +21,6 @@ function App() {
     });
   };
 
-  const STORAGE_KEY = "poker_record";
   const [records, setRecords] = useState<RecordItems[]>(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) return [];
@@ -51,6 +51,7 @@ function App() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
       return newData;
     });
+    setTmListScreen();
 
     reset();
   };
@@ -65,6 +66,9 @@ function App() {
   const setTmListScreen = () => {
     setScreen("tmList");
   };
+  {
+    /* ==============日付順にrecordsをソート==============*/
+  }
 
   return (
     <div className="">
@@ -139,7 +143,6 @@ function App() {
             </form>
           )}
         </div>
-        {/* ==============履歴一覧==============*/}
       </div>
     </div>
   );
