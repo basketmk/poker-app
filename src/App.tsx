@@ -134,6 +134,10 @@ function App() {
   const averageBuyIn =
     records.length === 0 ? 0 : Math.round(totalBuyIn / records.length);
   {
+    /*=============トーナメント参加数=========== */
+  }
+  const totalTmCount = records.length;
+  {
     /*=============インマネ率=========== */
   }
   const itmCount = records.filter((r) => r.buyOut > 0).length;
@@ -207,7 +211,12 @@ function App() {
         <div className="grid grid-cols-2">
           <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
             <p>インマネ率</p>
-            <p>{itmRate}%</p>
+            <div className="flex gap-2">
+              <p className="text-cyan-700">{itmRate}%</p>
+              <p className="text-sm flex items-center justify-center">
+                ({itmCount} / {totalTmCount})
+              </p>
+            </div>
           </div>
           <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
             <p>ROI</p>
