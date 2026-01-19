@@ -5,37 +5,23 @@ type Props = {
 };
 
 export const Summary = ({ records }: Props) => {
-  {
-    /*==============トータル収支============== */
-  }
+  //==============トータル収支==============
   const totalProfit = records.reduce((sum, r) => sum + (r.buyOut - r.buyIn), 0);
-  {
-    /*=============トータル賞金=============== */
-  }
+  //=============トータル賞金===============
   const totalPrize = records.reduce((sum, r) => sum + r.buyOut, 0);
-  {
-    /*=============最大賞金=========== */
-  }
+  //=============最大賞金===========
   const maxPrize = records.reduce((max, r) => Math.max(max, r.buyOut), 0);
-  {
-    /*=============平均buy-in=========== */
-  }
+  //=============平均buy-in=========== */
   const totalBuyIn = records.reduce((sum, r) => sum + r.buyIn, 0);
   const averageBuyIn =
     records.length === 0 ? 0 : Math.round(totalBuyIn / records.length);
-  {
-    /*=============トーナメント参加数=========== */
-  }
+  //=============トーナメント参加数===========
   const totalTmCount = records.length;
-  {
-    /*=============インマネ率=========== */
-  }
+  //=============インマネ率===========
   const itmCount = records.filter((r) => r.buyOut > 0).length;
   const itmRate =
     records.length === 0 ? "0.0" : ((itmCount / totalTmCount) * 100).toFixed(1);
-  {
-    /*=============ROI=========== */
-  }
+  //=============ROI===========
   const Roi =
     totalBuyIn === 0
       ? "0.0"

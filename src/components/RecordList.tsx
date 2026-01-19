@@ -1,12 +1,5 @@
 import { RecordItem } from "./RecordItem";
-
-export type RecordItems = {
-  id: string;
-  date: string;
-  name: string;
-  buyIn: number;
-  buyOut: number;
-};
+import type { RecordItems } from "../types/type";
 
 type Props = {
   records: RecordItems[];
@@ -19,11 +12,7 @@ export const RecordList = ({ records, onDelete }: Props) => {
       {records.map((record) => (
         <RecordItem
           key={record.id}
-          id={record.id}
-          date={record.date}
-          name={record.name}
-          buyIn={record.buyIn}
-          buyOut={record.buyOut}
+          record={record}
           onDelete={() => onDelete(record)}
         />
       ))}

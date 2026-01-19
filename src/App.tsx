@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { useForm } from "react-hook-form";
 import { RecordList } from "./components/RecordList";
-import type { RecordItems } from "./types/type";
 import { Summary } from "./components/Summary";
+import type { RecordItems } from "./types/type";
+import type { FormValues } from "./types/type";
 
 function App() {
   {
@@ -29,12 +30,6 @@ function App() {
   {
     /* ==============入力フォーム==============*/
   }
-  type FormValues = {
-    date: string;
-    name: string;
-    buyIn: string;
-    buyOut: string;
-  };
   const { register, handleSubmit, reset } = useForm<FormValues>();
   const onSubmit = (values: FormValues) => {
     const buyInNum = Number(values.buyIn);

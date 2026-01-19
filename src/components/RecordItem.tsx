@@ -1,42 +1,40 @@
+import type { RecordItems } from "../types/type";
+
 type Props = {
-  id: string;
-  date: string;
-  name: string;
-  buyIn: number;
-  buyOut: number;
-  onDelete: () => void;
+  record: RecordItems;
+  onDelete: (record: RecordItems) => void;
 };
 
 {
   /* ==============履歴一覧用==============*/
 }
-export const RecordItem = (props: Props) => {
-  const profit = props.buyOut - props.buyIn;
-  const isITM: boolean = props.buyOut > 0;
+export const RecordItem = ({ record, onDelete }: Props) => {
+  const profit = record.buyOut - record.buyIn;
+  const isITM: boolean = record.buyOut > 0;
   return (
     <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left gap-3 flex">
       {/* ==============トーナメント内容============== */}
       <div className="flex-1 min-w-0">
         <div className="flex gap-3 items-center">
-          <p className="text-sm">{props.date}</p>
+          <p className="text-sm">{record.date}</p>
           {isITM && (
             <p className="rounded text-xs ring ring-black px-1 py-0.5">ITM</p>
           )}
         </div>
-        <p>{props.name}</p>
+        <p>{record.name}</p>
         <div className="grid grid-cols-3">
           <div className="text-left text-sm flex">
             <p>Buy-in:</p>
-            <p className="pl-1 text-red-500">${props.buyIn}</p>
+            <p className="pl-1 text-red-500">${record.buyIn}</p>
           </div>
           <div className="text-left text-sm flex">
             <p>Buy-out:</p>
             <p
               className={`pl-1 ${
-                props.buyOut > 0 ? "text-green-500" : "text-black"
+                record.buyOut > 0 ? "text-green-500" : "text-black"
               }`}
             >
-              ${props.buyOut}
+              ${record.buyOut}
             </p>
           </div>
           <div className="items-center">
@@ -62,7 +60,7 @@ export const RecordItem = (props: Props) => {
       <button
         type="button"
         className="shrink-0 text-xl leading-none"
-        onClick={props.onDelete}
+        onClick={() => onDelete(record)}
       >
         ×
       </button>
