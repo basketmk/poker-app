@@ -60,20 +60,10 @@ function App() {
   }
   const [screen, setScreen] = useState("tmList");
   const setFormScreen = () => {
-    const newScreen = screen;
-    if (newScreen === "tmList") {
-      setScreen("form");
-    } else {
-      setScreen("form");
-    }
+    setScreen("form");
   };
   const setTmListScreen = () => {
-    const newScreen = screen;
-    if (newScreen === "tmList") {
-      setScreen("tmList");
-    } else {
-      setScreen("tmList");
-    }
+    setScreen("tmList");
   };
 
   return (
@@ -83,7 +73,7 @@ function App() {
       </h1>
       <Summary records={records} />
       <div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 m-2">
           <button
             onClick={setTmListScreen}
             className="border-b p-4 min-w-full cursor-pointer"
@@ -99,6 +89,7 @@ function App() {
         </div>
       </div>
       <div>
+        {/* ==============履歴一覧============== */}
         <div>
           {screen === "tmList" && (
             <>
