@@ -52,8 +52,8 @@ function App() {
                     profit > 0
                       ? "text-green-500"
                       : profit < 0
-                      ? "text-red-500"
-                      : "text-black"
+                        ? "text-red-500"
+                        : "text-black"
                   }`}
                 >
                   {profit >= 0 ? "+" : ""}
@@ -103,7 +103,11 @@ function App() {
           if (!confirm(`${record.name} を削除しますか？`)) {
             return;
           }
-          setRecords((prev) => prev.filter((r) => r.id !== record.id));
+          setRecords((prev) => {
+            const newItems = prev.filter((r) => r.id !== record.id);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
+            return newItems;
+          });
         }}
       />
     );
@@ -189,8 +193,8 @@ function App() {
               totalProfit > 0
                 ? "text-green-500"
                 : totalProfit < 0
-                ? "text-red-500"
-                : "text-black"
+                  ? "text-red-500"
+                  : "text-black"
             }`}
           >
             {totalProfit >= 0 ? "+" : ""}
