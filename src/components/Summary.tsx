@@ -20,11 +20,11 @@ export const Summary = ({ records }: Props) => {
   //=============インマネ率===========
   const itmCount = records.filter((r) => r.buyOut > 0).length;
   const itmRate =
-    records.length === 0 ? "0.0" : ((itmCount / totalTmCount) * 100).toFixed(1);
+    records.length === 0 ? 0.0 : ((itmCount / totalTmCount) * 100).toFixed(1);
   //=============ROI===========
   const Roi =
     totalBuyIn === 0
-      ? "0.0"
+      ? 0.0
       : (((totalPrize - totalBuyIn) / totalBuyIn) * 100).toFixed(1);
 
   return (
