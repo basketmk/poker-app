@@ -59,7 +59,8 @@ function App() {
   {
     /* ==============Stateで画面遷移==============*/
   }
-  const [screen, setScreen] = useState("tmList");
+  type Screen = "tmList" | "form";
+  const [screen, setScreen] = useState<Screen>("tmList");
   const setFormScreen = () => {
     setScreen("form");
   };
