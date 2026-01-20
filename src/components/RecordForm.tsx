@@ -5,7 +5,14 @@ import { useForm } from "react-hook-form";
 type Props = { onAdd: (newRecord: RecordItems) => void };
 
 export const RecordForm = ({ onAdd }: Props) => {
-  const { register, handleSubmit, reset } = useForm<FormValues>();
+  const { register, handleSubmit, reset } = useForm<FormValues>({
+    defaultValues: {
+      date: new Date().toISOString().slice(0, 10),
+      name: "",
+      buyIn: "",
+      buyOut: "",
+    },
+  });
   const onSubmit = (values: FormValues) => {
     const buyInNum = Number(values.buyIn);
     const buyOutNum = Number(values.buyOut);
@@ -16,8 +23,8 @@ export const RecordForm = ({ onAdd }: Props) => {
 
     const newRecord: RecordItems = {
       id: crypto.randomUUID(),
-      date: values.date,
-      name: values.name,
+      date: date,
+      name: name,
       buyIn: buyInNum,
       buyOut: buyOutNum,
     };

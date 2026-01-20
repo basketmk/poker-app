@@ -30,7 +30,9 @@ function App() {
 
   const handleAddRecord = (newRecord: RecordItems) => {
     setRecords((prev) => {
-      const newData = [newRecord, ...prev];
+      const newData = [newRecord, ...prev].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      );
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
       return newData;
     });
