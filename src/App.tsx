@@ -5,6 +5,7 @@ import { RecordList } from "./components/RecordList";
 import { Summary } from "./components/Summary";
 import type { RecordItems } from "./types/type";
 import type { FormValues } from "./types/type";
+import { RecordForm } from "./components/RecordForm";
 
 function App() {
   const STORAGE_KEY = "poker_record";
@@ -27,33 +28,13 @@ function App() {
     return JSON.parse(stored) as RecordItems[];
   });
 
-  {
-    /* ==============入力フォーム==============*/
-  }
-  const { register, handleSubmit, reset } = useForm<FormValues>();
-  const onSubmit = (values: FormValues) => {
-    const buyInNum = Number(values.buyIn);
-    const buyOutNum = Number(values.buyOut);
-    const date = values.date.trim();
-    const name = values.name.trim();
-    if (!date || !name) return;
-    if (Number.isNaN(buyInNum) || Number.isNaN(buyOutNum)) return;
-
-    const newRecords: RecordItems = {
-      id: crypto.randomUUID(),
-      date: values.date,
-      name: values.name,
-      buyIn: buyInNum,
-      buyOut: buyOutNum,
-    };
+  const handleAddRecord = (newRecord: RecordItems) => {
     setRecords((prev) => {
-      const newData = [newRecords, ...prev];
+      const newData = [newRecord, ...prev];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
       return newData;
     });
     setTmListScreen();
-
-    reset();
   };
 
   {
@@ -103,47 +84,7 @@ function App() {
           )}
         </div>
         {/* ==============新規登録フォーム============== */}
-        <div>
-          {screen === "form" && (
-            <form onSubmit={handleSubmit(onSubmit)} className="">
-              <p className="text-left p-2">日付</p>
-              <input
-                type="date"
-                className="text-left ring rounded-xl p-2 min-w-full"
-                {...register("date")}
-              />
-              <p className="text-left p-2">トーナメント名</p>
-              <input
-                className="text-left ring rounded-xl p-2 min-w-full"
-                {...register("name")}
-              />
-              <div className="grid grid-cols-2 gap-3">
-                <div className="text-left">
-                  <p className="text-left p-2">Buy-in (USD)</p>
-                  <input
-                    type="number"
-                    className="text-left ring rounded-xl p-2 min-w-full"
-                    {...register("buyIn")}
-                  />
-                </div>
-                <div className="text-left">
-                  <p className="text-left p-2">Buy-out (USD)</p>
-                  <input
-                    type="number"
-                    className="text-left ring rounded-xl p-2 min-w-full"
-                    {...register("buyOut")}
-                  />
-                </div>
-              </div>
-              <button
-                type="submit"
-                className="ring rounded-xl min-w-full p-2 mt-4 bg-green-300"
-              >
-                登録する
-              </button>
-            </form>
-          )}
-        </div>
+        <div>{screen === "form" && <RecordForm onAdd={handleAddRecord} />}</div>
       </div>
     </div>
   );
