@@ -6,12 +6,66 @@ import { Summary } from "./components/Summary";
 import type { RecordItems } from "./types/type";
 import type { FormValues } from "./types/type";
 import { RecordForm } from "./components/RecordForm";
+const Month = () => {
+  return (
+    <div className="flex">
+      <>
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          1月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          2月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          3月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          4月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          5月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          6月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          7月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          8月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          9月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          10月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          11月
+        </button>
+
+        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
+          12月
+        </button>
+      </>
+    </div>
+  );
+};
 
 function App() {
   const STORAGE_KEY = "poker_record";
-  {
-    /* ==============履歴削除用関数============== */
-  }
+
+  //==============履歴削除用関数==============
   const handleDelete = (record: RecordItems) => {
     if (!confirm(`${record.name} を削除しますか？`)) return;
 
@@ -39,9 +93,7 @@ function App() {
     setTmListScreen();
   };
 
-  {
-    /* ==============Stateで画面遷移==============*/
-  }
+  //==============Stateで画面遷移==============
   type Screen = "tmList" | "form";
   const [screen, setScreen] = useState<Screen>("tmList");
   const setFormScreen = () => {
@@ -50,9 +102,6 @@ function App() {
   const setTmListScreen = () => {
     setScreen("tmList");
   };
-  {
-    /* ==============日付順にrecordsをソート==============*/
-  }
 
   return (
     <div className="">
@@ -78,11 +127,21 @@ function App() {
       </div>
       <div>
         {/* ==============履歴一覧============== */}
-        <div>
+        <div className="">
           {screen === "tmList" && (
             <>
-              <RecordList records={records} onDelete={handleDelete} />
+              <button className="border rounded flex items-left text-sm p-0.5 m-0.5">
+                2026年
+              </button>
+              <Month />
             </>
+          )}
+        </div>
+        <div>
+          {screen === "tmList" && (
+            <div>
+              <RecordList records={records} onDelete={handleDelete} />
+            </div>
           )}
         </div>
         {/* ==============新規登録フォーム============== */}
