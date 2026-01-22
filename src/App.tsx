@@ -51,9 +51,7 @@ function App() {
   //==============期間別フィルタリング==============
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
-  const onSetSelectedYear = (year: number) => {
-    setSelectedYear(year);
-  };
+
   const getYear = (date: string) => Number(date.slice(0, 4));
   const getMonth = (date: string) => Number(date.slice(5, 7));
 
@@ -104,8 +102,12 @@ function App() {
                 {years.map((year) => {
                   return (
                     <button
-                      className="border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer"
-                      onClick={() => onSetSelectedYear(year)}
+                      key={year}
+                      className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === year ? "bg-gray-300" : ""}`}
+                      onClick={() => {
+                        setSelectedYear(year);
+                        setSelectedMonth(null);
+                      }}
                     >
                       {year}年
                     </button>
@@ -116,7 +118,11 @@ function App() {
                 {selectedYear !== null &&
                   months.map((month) => {
                     return (
-                      <button className="border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer">
+                      <button
+                        key={month}
+                        className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedMonth === month ? "bg-gray-300" : ""}`}
+                        onClick={() => setSelectedMonth(month)}
+                      >
                         {month}月
                       </button>
                     );
@@ -129,7 +135,7 @@ function App() {
         <div>
           {screen === "tmList" && (
             <div>
-              <RecordList records={records} onDelete={handleDelete} />
+              <RecordList records={filteredRecords} onDelete={handleDelete} />
             </div>
           )}
         </div>
