@@ -4,6 +4,7 @@ import { RecordList } from "./components/RecordList";
 import { Summary } from "./components/Summary";
 import type { RecordItems } from "./types/type";
 import { RecordForm } from "./components/RecordForm";
+import { CashFlowChart } from "./components/CashFlowChart";
 
 function App() {
   const STORAGE_KEY = "poker_record";
@@ -211,6 +212,7 @@ function App() {
         </div>
         {/* ==============新規登録フォーム============== */}
         <div>{screen === "form" && <RecordForm onAdd={handleAddRecord} />}</div>
+        {screen === "chart" && <CashFlowChart records={filteredRecords} />}
       </div>
     </div>
   );
