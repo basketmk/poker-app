@@ -205,13 +205,14 @@ function App() {
         {/* ===履歴詳細=== */}
         <div>
           {screen === "tmList" && (
-            <div className="h-[45vh] overflow-y-auto overscroll-contain p-3">
+            <div className="h-[40vh] overflow-y-auto overscroll-contain p-3">
               <RecordList records={filteredRecords} onDelete={handleDelete} />
             </div>
           )}
         </div>
         {/* ==============新規登録フォーム============== */}
         <div>{screen === "form" && <RecordForm onAdd={handleAddRecord} />}</div>
+        {/* ==============グラフ============== */}
         {screen === "chart" && <CashFlowChart records={filteredRecords} />}
       </div>
     </div>
