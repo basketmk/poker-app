@@ -68,24 +68,21 @@ function App() {
     return true;
   });
 
+  const periodLabel =
+    selectedYear === null
+      ? "全期間"
+      : selectedMonth === null
+        ? `${selectedYear}年`
+        : `${selectedYear}年${selectedMonth}`;
+
   return (
     <div className="">
       <h1 className="flex items-center justify-center p-4 mb-1 text-3xl border-b">
         ポーカー収支管理アプリ
       </h1>
-      {selectedYear === null && selectedMonth === null && (
-        <div className="pb-2 pt-3 flex items-center justify-center">全期間</div>
-      )}
-      {selectedYear !== null && selectedMonth === null && (
-        <div className="pb-2 pt-3 flex items-center justify-center">
-          {selectedYear}年
-        </div>
-      )}
-      {selectedYear !== null && selectedMonth !== null && (
-        <div className="pb-2 pt-3 flex items-center justify-center">
-          {selectedYear}年{selectedMonth}月
-        </div>
-      )}
+      <div className="pb-2 pt-3 flex items-center justify-center">
+        {periodLabel}
+      </div>
       <Summary records={filteredRecords} />
       <div>
         <div className="grid grid-cols-2 m-2">
