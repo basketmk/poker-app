@@ -43,7 +43,7 @@ export const CashFlowChart = ({ records }: Props) => {
   const maxCumProfit = Math.max(...cumulativeData.map((c) => c.cumProfit));
 
   return (
-    <div className="h-[50vh] w-full">
+    <div className="h-[40vh] w-full items-bottom">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={cumulativeData}
@@ -56,7 +56,7 @@ export const CashFlowChart = ({ records }: Props) => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <Line dataKey={"cumProfit"} />
+          <Line dataKey={"cumProfit"} name="累計収支" />
           <YAxis domain={[-maxCumProfit - 10, maxCumProfit + 10]} />
           <Legend />
           <Tooltip contentStyle={{ fontSize: "12px" }} />

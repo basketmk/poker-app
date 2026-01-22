@@ -134,7 +134,7 @@ function App() {
         {/* ==============履歴一覧============== */}
         {/* ===年月別フィルタリング=== */}
         <div className="flex">
-          {screen === "tmList" && (
+          {(screen === "tmList" || screen === "chart") && (
             <div>
               <div className="flex">
                 <button
