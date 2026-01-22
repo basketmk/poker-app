@@ -1,10 +1,8 @@
 import { useState } from "react";
 import "./App.css";
-import { useForm } from "react-hook-form";
 import { RecordList } from "./components/RecordList";
 import { Summary } from "./components/Summary";
 import type { RecordItems } from "./types/type";
-import type { FormValues } from "./types/type";
 import { RecordForm } from "./components/RecordForm";
 
 function App() {
@@ -95,24 +93,36 @@ function App() {
       <div>
         {/* ==============履歴一覧============== */}
         {/* ===年月別フィルタリング=== */}
-        <div className="">
+        <div className="flex">
           {screen === "tmList" && (
-            <>
+            <div>
               <div className="flex">
-                {years.map((year) => {
-                  return (
-                    <button
-                      key={year}
-                      className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === year ? "bg-gray-300" : ""}`}
-                      onClick={() => {
-                        setSelectedYear(year);
-                        setSelectedMonth(null);
-                      }}
-                    >
-                      {year}年
-                    </button>
-                  );
-                })}
+                <button
+                  className={`items-left border rounded text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === null && selectedMonth === null ? "bg-gray-300" : ""}`}
+                  onClick={() => {
+                    setSelectedYear(null);
+                    setSelectedMonth(null);
+                  }}
+                >
+                  全期間
+                </button>
+
+                <div className="flex">
+                  {years.map((year) => {
+                    return (
+                      <button
+                        key={year}
+                        className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === year ? "bg-gray-300" : ""}`}
+                        onClick={() => {
+                          setSelectedYear(year);
+                          setSelectedMonth(null);
+                        }}
+                      >
+                        {year}年
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
               <div className="flex">
                 {selectedYear !== null &&
@@ -128,7 +138,7 @@ function App() {
                     );
                   })}
               </div>
-            </>
+            </div>
           )}
         </div>
         {/* ===履歴詳細=== */}
