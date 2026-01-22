@@ -37,7 +37,7 @@ function App() {
   };
 
   //==============Stateで画面遷移==============
-  type Screen = "tmList" | "form";
+  type Screen = "tmList" | "form" | "chart";
   const [screen, setScreen] = useState<Screen>("tmList");
 
   //==============期間別フィルタリング==============
@@ -99,7 +99,7 @@ function App() {
       </div>
       <Summary records={filteredRecords} />
       <div>
-        <div className="grid grid-cols-2 m-2">
+        <div className="grid grid-cols-3 m-2">
           <button
             onClick={() => {
               setScreen("tmList");
@@ -118,6 +118,14 @@ function App() {
             className="border-b p-4 min-w-full cursor-pointer"
           >
             ＋新規登録
+          </button>
+          <button
+            onClick={() => {
+              setScreen("chart");
+            }}
+            className="border-b p-4 min-w-full cursor-pointer"
+          >
+            グラフ
           </button>
         </div>
       </div>
