@@ -33,37 +33,49 @@ function App() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
       return newData;
     });
-    setTmListScreen();
+    setScreen("tmList");
   };
 
   //==============Stateで画面遷移==============
   type Screen = "tmList" | "form";
   const [screen, setScreen] = useState<Screen>("tmList");
-  const setFormScreen = () => {
-    setScreen("form");
-  };
-  const setTmListScreen = () => {
-    setScreen("tmList");
-  };
 
   //==============期間別フィルタリング==============
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
 
   const getYear = (date: string) => Number(date.slice(0, 4));
   const getMonth = (date: string) => Number(date.slice(5, 7));
+  const getDay = (date: string) => Number(date.slice(8, 10));
 
   const years = Array.from(
     new Set(records.map((record) => getYear(record.date))),
   ).sort((a, b) => b - a);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const days =
+    selectedYear !== null && selectedMonth !== null
+      ? Array.from(
+          new Set(
+            records
+              .filter(
+                (record) =>
+                  getYear(record.date) === selectedYear &&
+                  getMonth(record.date) === selectedMonth,
+              )
+              .map((record) => getDay(record.date)),
+          ),
+        ).sort((a, b) => a - b)
+      : [];
 
   const filteredRecords = records.filter((record) => {
     const year = getYear(record.date);
     const month = getMonth(record.date);
+    const day = getDay(record.date);
 
     if (selectedYear !== null && year !== selectedYear) return false;
     if (selectedMonth !== null && month !== selectedMonth) return false;
+    if (selectedDay !== null && day !== selectedDay) return false;
 
     return true;
   });
@@ -73,7 +85,9 @@ function App() {
       ? "全期間"
       : selectedMonth === null
         ? `${selectedYear}年`
-        : `${selectedYear}年${selectedMonth}`;
+        : selectedDay === null
+          ? `${selectedYear}年${selectedMonth}月`
+          : `${selectedYear}年${selectedMonth}月${selectedDay}日`;
 
   return (
     <div className="">
@@ -87,13 +101,20 @@ function App() {
       <div>
         <div className="grid grid-cols-2 m-2">
           <button
-            onClick={setTmListScreen}
+            onClick={() => {
+              setScreen("tmList");
+              setSelectedYear(null);
+              setSelectedMonth(null);
+              setSelectedDay(null);
+            }}
             className="border-b p-4 min-w-full cursor-pointer"
           >
             履歴一覧
           </button>
           <button
-            onClick={setFormScreen}
+            onClick={() => {
+              setScreen("form");
+            }}
             className="border-b p-4 min-w-full cursor-pointer"
           >
             ＋新規登録
@@ -112,6 +133,7 @@ function App() {
                   onClick={() => {
                     setSelectedYear(null);
                     setSelectedMonth(null);
+                    setSelectedDay(null);
                   }}
                 >
                   全期間
@@ -126,6 +148,7 @@ function App() {
                         onClick={() => {
                           setSelectedYear(year);
                           setSelectedMonth(null);
+                          setSelectedDay(null);
                         }}
                       >
                         {year}年
@@ -141,10 +164,29 @@ function App() {
                       <button
                         key={month}
                         className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedMonth === month ? "bg-gray-300" : ""}`}
-                        onClick={() => setSelectedMonth(month)}
+                        onClick={() => {
+                          setSelectedMonth(month);
+                          setSelectedDay(null);
+                        }}
                       >
                         {month}月
                       </button>
+                    );
+                  })}
+              </div>
+              <div className="flex">
+                {selectedMonth !== null &&
+                  days.map((day) => {
+                    return (
+                      <div>
+                        <button
+                          key={day}
+                          className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedDay === day ? "bg-gray-300" : ""}`}
+                          onClick={() => setSelectedDay(day)}
+                        >
+                          {day}日
+                        </button>
+                      </div>
                     );
                   })}
               </div>
