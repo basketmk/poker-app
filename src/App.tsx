@@ -90,7 +90,7 @@ function App() {
           : `${selectedYear}年${selectedMonth}月${selectedDay}日`;
 
   return (
-    <div className="">
+    <div className="h-screen p-3">
       <h1 className="flex items-center justify-center p-4 mb-1 text-3xl border-b">
         ポーカー収支管理アプリ
       </h1>
@@ -196,7 +196,7 @@ function App() {
         {/* ===履歴詳細=== */}
         <div>
           {screen === "tmList" && (
-            <div>
+            <div className="h-[45vh] overflow-y-auto overscroll-contain p-3">
               <RecordList records={filteredRecords} onDelete={handleDelete} />
             </div>
           )}
