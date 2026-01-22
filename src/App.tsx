@@ -114,7 +114,7 @@ function App() {
             className="ml-1 w-3 h-3"
             type="checkbox"
             checked={isJPY}
-            onChange={() => setIsJPY(!isJPY)}
+            onChange={(e) => setIsJPY(e.target.checked)}
           ></input>
         </div>
       </div>
@@ -229,7 +229,11 @@ function App() {
         <div>
           {screen === "tmList" && (
             <div className="h-[40vh] overflow-y-auto overscroll-contain p-3">
-              <RecordList records={filteredRecords} onDelete={handleDelete} />
+              <RecordList
+                records={filteredRecords}
+                onDelete={handleDelete}
+                exchange={exchangeMoney}
+              />
             </div>
           )}
         </div>

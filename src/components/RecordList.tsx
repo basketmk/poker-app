@@ -4,9 +4,10 @@ import type { RecordItems } from "../types/type";
 type Props = {
   records: RecordItems[];
   onDelete: (record: RecordItems) => void;
+  exchange: (money: number) => string;
 };
 
-export const RecordList = ({ records, onDelete }: Props) => {
+export const RecordList = ({ records, onDelete, exchange }: Props) => {
   return (
     <div>
       {records.map((record) => (
@@ -14,6 +15,7 @@ export const RecordList = ({ records, onDelete }: Props) => {
           key={record.id}
           record={record}
           onDelete={() => onDelete(record)}
+          exchange={exchange}
         />
       ))}
     </div>

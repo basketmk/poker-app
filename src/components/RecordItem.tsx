@@ -3,12 +3,13 @@ import type { RecordItems } from "../types/type";
 type Props = {
   record: RecordItems;
   onDelete: (record: RecordItems) => void;
+  exchange: (money: number) => string;
 };
 
 {
   /* ==============履歴一覧用==============*/
 }
-export const RecordItem = ({ record, onDelete }: Props) => {
+export const RecordItem = ({ record, onDelete, exchange }: Props) => {
   const profit = record.buyOut - record.buyIn;
   const isITM: boolean = record.buyOut > 0;
   return (
@@ -25,7 +26,7 @@ export const RecordItem = ({ record, onDelete }: Props) => {
         <div className="grid grid-cols-3">
           <div className="text-left text-sm flex">
             <p>Buy-in:</p>
-            <p className="pl-1 text-red-500">${record.buyIn}</p>
+            <p className="pl-1 text-red-500">{exchange(record.buyIn)}</p>
           </div>
           <div className="text-left text-sm flex">
             <p>Buy-out:</p>
@@ -34,7 +35,7 @@ export const RecordItem = ({ record, onDelete }: Props) => {
                 record.buyOut > 0 ? "text-green-500" : "text-black"
               }`}
             >
-              ${record.buyOut}
+              {exchange(record.buyOut)}
             </p>
           </div>
           <div className="items-center">
@@ -50,7 +51,7 @@ export const RecordItem = ({ record, onDelete }: Props) => {
                 }`}
               >
                 {profit >= 0 ? "+" : ""}
-                {profit}
+                {exchange(profit)}
               </p>
             </div>
           </div>
