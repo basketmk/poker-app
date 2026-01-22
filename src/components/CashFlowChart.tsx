@@ -6,6 +6,7 @@ import {
   CartesianGrid,
   Legend,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
 import type { RecordItems } from "../types/type";
 
@@ -56,6 +57,7 @@ export const CashFlowChart = ({ records }: Props) => {
           <Line dataKey={"cumProfit"} />
           <YAxis domain={["dataMin - 10", "dataMax + 10"]} />
           <Legend />
+          <Tooltip contentStyle={{ fontSize: "12px" }} />
         </LineChart>
       </ResponsiveContainer>
     </div>
