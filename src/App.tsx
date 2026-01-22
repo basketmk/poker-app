@@ -92,6 +92,15 @@ function App() {
 
   //==============円表示==============
   const [isJPY, setIsJPY] = useState<true | false>(false);
+  const USD_to_JPY = 158.5;
+
+  const exchangeMoney = (USD: number) => {
+    if (isJPY) {
+      const JPY = Math.round(USD * USD_to_JPY);
+      return JPY;
+    }
+    return USD;
+  };
 
   return (
     <div className="h-screen p-3">
@@ -99,9 +108,14 @@ function App() {
         <h1 className="flex items-center justify-center p-4 mb-1 text-3xl">
           ポーカー収支管理アプリ
         </h1>
-        <div className="flex items-center justify-end gap-1">
-          <p className="">円表示</p>
-          <input type="checkbox"></input>
+        <div className="flex items-center justify-end gap-1 text-sm">
+          <p className="">円表示(USD/JPY {USD_to_JPY})</p>
+          <input
+            className="ml-1 w-3 h-3"
+            type="checkbox"
+            checked={isJPY}
+            onChange={() => setIsJPY(!isJPY)}
+          ></input>
         </div>
       </div>
       <div className="pb-2 pt-3 flex items-center justify-center">
