@@ -2,9 +2,10 @@ import type { RecordItems } from "../types/type";
 
 type Props = {
   records: RecordItems[];
+  exchange: (money: number) => string;
 };
 
-export const Summary = ({ records }: Props) => {
+export const Summary = ({ records, exchange }: Props) => {
   //==============トータル収支==============
   const totalProfit = records.reduce((sum, r) => sum + (r.buyOut - r.buyIn), 0);
   //=============トータル賞金===============
@@ -42,7 +43,7 @@ export const Summary = ({ records }: Props) => {
             }`}
           >
             {totalProfit >= 0 ? "+" : ""}
-            {totalProfit} USD
+            {exchange(totalProfit)}
           </p>
         </div>
         <div className="grid grid-cols-2">
@@ -64,15 +65,15 @@ export const Summary = ({ records }: Props) => {
       <div className="grid grid-cols-3">
         <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
           <p>トータル賞金</p>
-          <p className="text-yellow-600">${totalPrize}</p>
+          <p className="text-yellow-600">{exchange(totalPrize)}</p>
         </div>
         <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
           <p>最大賞金</p>
-          <p className="text-yellow-600">${maxPrize}</p>
+          <p className="text-yellow-600">{exchange(maxPrize)}</p>
         </div>
         <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left">
           <p>平均buy-in</p>
-          <p>${averageBuyIn}</p>
+          <p>{exchange(averageBuyIn)}</p>
         </div>
       </div>
     </div>

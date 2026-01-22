@@ -97,9 +97,9 @@ function App() {
   const exchangeMoney = (USD: number) => {
     if (isJPY) {
       const JPY = Math.round(USD * USD_to_JPY);
-      return JPY;
+      return `￥${JPY}`;
     }
-    return USD;
+    return `$${USD}`;
   };
 
   return (
@@ -121,7 +121,7 @@ function App() {
       <div className="pb-2 pt-3 flex items-center justify-center">
         {periodLabel}
       </div>
-      <Summary records={filteredRecords} />
+      <Summary records={filteredRecords} exchange={exchangeMoney} />
       <div>
         <div className="grid grid-cols-3 m-2">
           <button
