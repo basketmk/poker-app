@@ -90,11 +90,20 @@ function App() {
           ? `${selectedYear}年${selectedMonth}月`
           : `${selectedYear}年${selectedMonth}月${selectedDay}日`;
 
+  //==============円表示==============
+  const [isJPY, setIsJPY] = useState<true | false>(false);
+
   return (
     <div className="h-screen p-3">
-      <h1 className="flex items-center justify-center p-4 mb-1 text-3xl border-b">
-        ポーカー収支管理アプリ
-      </h1>
+      <div className="mb-1 border-b">
+        <h1 className="flex items-center justify-center p-4 mb-1 text-3xl">
+          ポーカー収支管理アプリ
+        </h1>
+        <div className="flex items-center justify-end gap-1">
+          <p className="">円表示</p>
+          <input type="checkbox"></input>
+        </div>
+      </div>
       <div className="pb-2 pt-3 flex items-center justify-center">
         {periodLabel}
       </div>

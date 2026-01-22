@@ -21,6 +21,7 @@ export const CashFlowChart = ({ records }: Props) => {
 
   type ChartData = {
     date: string;
+    name: string;
     cumProfit: number;
   };
 
@@ -33,6 +34,7 @@ export const CashFlowChart = ({ records }: Props) => {
 
       sum.push({
         date: r.date,
+        name: r.name,
         cumProfit: cumProfit,
       });
       return sum;
