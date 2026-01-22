@@ -70,10 +70,23 @@ function App() {
 
   return (
     <div className="">
-      <h1 className="flex items-center justify-center p-4 text-2xl border-b">
+      <h1 className="flex items-center justify-center p-4 mb-1 text-3xl border-b">
         ポーカー収支管理アプリ
       </h1>
-      <Summary records={records} />
+      {selectedYear === null && selectedMonth === null && (
+        <div className="pb-2 pt-3 flex items-center justify-center">全期間</div>
+      )}
+      {selectedYear !== null && selectedMonth === null && (
+        <div className="pb-2 pt-3 flex items-center justify-center">
+          {selectedYear}年
+        </div>
+      )}
+      {selectedYear !== null && selectedMonth !== null && (
+        <div className="pb-2 pt-3 flex items-center justify-center">
+          {selectedYear}年{selectedMonth}月
+        </div>
+      )}
+      <Summary records={filteredRecords} />
       <div>
         <div className="grid grid-cols-2 m-2">
           <button
