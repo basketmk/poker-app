@@ -6,61 +6,6 @@ import { Summary } from "./components/Summary";
 import type { RecordItems } from "./types/type";
 import type { FormValues } from "./types/type";
 import { RecordForm } from "./components/RecordForm";
-const Month = () => {
-  return (
-    <div className="flex">
-      <>
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          1月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          2月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          3月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          4月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          5月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          6月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          7月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          8月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          9月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          10月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          11月
-        </button>
-
-        <button className="border rounded flex items-left text-xs p-0.5 m-0.5">
-          12月
-        </button>
-      </>
-    </div>
-  );
-};
 
 function App() {
   const STORAGE_KEY = "poker_record";
@@ -103,6 +48,30 @@ function App() {
     setScreen("tmList");
   };
 
+  //==============期間別フィルタリング==============
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
+  const onSetSelectedYear = (year: number) => {
+    setSelectedYear(year);
+  };
+  const getYear = (date: string) => Number(date.slice(0, 4));
+  const getMonth = (date: string) => Number(date.slice(5, 7));
+
+  const years = Array.from(
+    new Set(records.map((record) => getYear(record.date))),
+  ).sort((a, b) => b - a);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+
+  const filteredRecords = records.filter((record) => {
+    const year = getYear(record.date);
+    const month = getMonth(record.date);
+
+    if (selectedYear !== null && year !== selectedYear) return false;
+    if (selectedMonth !== null && month !== selectedMonth) return false;
+
+    return true;
+  });
+
   return (
     <div className="">
       <h1 className="flex items-center justify-center p-4 text-2xl border-b">
@@ -127,16 +96,36 @@ function App() {
       </div>
       <div>
         {/* ==============履歴一覧============== */}
+        {/* ===年月別フィルタリング=== */}
         <div className="">
           {screen === "tmList" && (
             <>
-              <button className="border rounded flex items-left text-sm p-0.5 m-0.5">
-                2026年
-              </button>
-              <Month />
+              <div className="flex">
+                {years.map((year) => {
+                  return (
+                    <button
+                      className="border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer"
+                      onClick={() => onSetSelectedYear(year)}
+                    >
+                      {year}年
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="flex">
+                {selectedYear !== null &&
+                  months.map((month) => {
+                    return (
+                      <button className="border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer">
+                        {month}月
+                      </button>
+                    );
+                  })}
+              </div>
             </>
           )}
         </div>
+        {/* ===履歴詳細=== */}
         <div>
           {screen === "tmList" && (
             <div>

@@ -7,7 +7,7 @@ type Props = { onAdd: (newRecord: RecordItems) => void };
 export const RecordForm = ({ onAdd }: Props) => {
   const { register, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
-      date: new Date().toISOString().slice(0, 10),
+      date: new Date().toLocaleDateString("ja-JP"),
       name: "",
       buyIn: "",
       buyOut: "",
