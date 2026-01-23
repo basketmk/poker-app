@@ -95,11 +95,13 @@ function App() {
   const USD_to_JPY = 158.5;
 
   const exchangeMoney = (USD: number) => {
+    const isMinus = USD < 0;
+    const n = Math.abs(USD);
     if (isJPY) {
-      const JPY = Math.round(USD * USD_to_JPY);
-      return `￥${JPY}`;
+      const JPY = Math.round(n * USD_to_JPY);
+      return isMinus ? `-￥${JPY}` : `￥${JPY}`;
     }
-    return `$${USD}`;
+    return isMinus ? `-$${n}` : `$${n}`;
   };
 
   return (
