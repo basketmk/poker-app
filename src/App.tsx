@@ -105,9 +105,9 @@ function App() {
   };
 
   return (
-    <div className="h-screen p-3">
-      <div className="mb-1 border-b">
-        <h1 className="flex items-center justify-center p-4 mb-1 text-3xl">
+    <div className="h-screen p-1">
+      <div className="mb-1 border-b h-[8vh]">
+        <h1 className="flex items-center justify-center mb-1 text-3xl">
           ポーカー収支管理アプリ
         </h1>
         <div className="flex items-center justify-end gap-1 text-sm">
@@ -120,7 +120,7 @@ function App() {
           ></input>
         </div>
       </div>
-      <div className="pb-2 pt-3 flex items-center justify-center">
+      <div className="pb-1 pt-1 flex items-center justify-center">
         {periodLabel}
       </div>
       <Summary records={filteredRecords} exchange={exchangeMoney} />
@@ -133,7 +133,7 @@ function App() {
               setSelectedMonth(null);
               setSelectedDay(null);
             }}
-            className="border-b p-4 min-w-full cursor-pointer"
+            className="border-b p-4 mt-3 min-w-full cursor-pointer"
           >
             履歴一覧
           </button>
@@ -141,7 +141,7 @@ function App() {
             onClick={() => {
               setScreen("form");
             }}
-            className="border-b p-4 min-w-full cursor-pointer"
+            className="border-b p-4 mt-3 min-w-full cursor-pointer"
           >
             ＋新規登録
           </button>
@@ -149,7 +149,7 @@ function App() {
             onClick={() => {
               setScreen("chart");
             }}
-            className="border-b p-4 min-w-full cursor-pointer"
+            className="border-b p-4 mt-3 min-w-full cursor-pointer"
           >
             グラフ
           </button>
@@ -158,7 +158,7 @@ function App() {
       <div>
         {/* ==============履歴一覧============== */}
         {/* ===年月別フィルタリング=== */}
-        <div className="flex">
+        <div className="flex min-h-[11vh]">
           {(screen === "tmList" || screen === "chart") && (
             <div>
               <div className="flex">
@@ -230,7 +230,7 @@ function App() {
         {/* ===履歴詳細=== */}
         <div>
           {screen === "tmList" && (
-            <div className="h-[40vh] overflow-y-auto overscroll-contain p-3">
+            <div className="h-[45vh] overflow-y-auto overscroll-contain p-3">
               <RecordList
                 records={filteredRecords}
                 onDelete={handleDelete}
