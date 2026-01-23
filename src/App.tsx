@@ -38,7 +38,7 @@ function App() {
   };
 
   //==============Stateで画面遷移==============
-  type Screen = "tmList" | "form" | "chart" | "home";
+  type Screen = "tmList" | "form" | "chart" | "home" | "hand";
   const [screen, setScreen] = useState<Screen>("home");
 
   //==============期間別フィルタリング==============
@@ -244,6 +244,7 @@ function App() {
               periodLabel={periodLabel}
             />
           )}
+          {screen === "hand" && <div>ハンド履歴</div>}
         </div>
       </div>
       <div className="border-t p-3 grid grid-cols-3">
@@ -251,12 +252,12 @@ function App() {
           onClick={() => {
             setScreen("chart");
           }}
-          className="cursor-pointer"
+          className={`cursor-pointer ${screen === "chart" && "text-green-500"}`}
         >
           グラフ
         </button>
         <button
-          className="cursor-pointer"
+          className={`cursor-pointer ${screen === "home" && "text-green-500"}`}
           onClick={() => {
             setScreen("home");
             setSelectedYear(null);
@@ -266,7 +267,12 @@ function App() {
         >
           ホーム
         </button>
-        <button className="cursor-pointer">ハンド履歴</button>
+        <button
+          className={`cursor-pointer ${screen === "hand" && "text-green-500"}`}
+          onClick={() => setScreen("hand")}
+        >
+          ハンド履歴
+        </button>
       </div>
     </div>
   );
