@@ -38,8 +38,8 @@ function App() {
   };
 
   //==============Stateで画面遷移==============
-  type Screen = "tmList" | "form" | "chart";
-  const [screen, setScreen] = useState<Screen>("tmList");
+  type Screen = "tmList" | "form" | "chart" | "home";
+  const [screen, setScreen] = useState<Screen>("home");
 
   //==============期間別フィルタリング==============
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
@@ -121,45 +121,42 @@ function App() {
             ></input>
           </div>
         </div>
-        <div className="pb-1 pt-1 flex items-center justify-center">
-          {periodLabel}
-        </div>
-        <Summary records={filteredRecords} exchange={exchangeMoney} />
-        <div>
-          <div className="grid grid-cols-3 m-2">
-            <button
-              onClick={() => {
-                setScreen("tmList");
-                setSelectedYear(null);
-                setSelectedMonth(null);
-                setSelectedDay(null);
-              }}
-              className="border-b p-4 mt-3 min-w-full cursor-pointer"
-            >
-              履歴一覧
-            </button>
-            <button
-              onClick={() => {
-                setScreen("form");
-              }}
-              className="border-b p-4 mt-3 min-w-full cursor-pointer"
-            >
-              ＋新規登録
-            </button>
-            <button
-              onClick={() => {
-                setScreen("chart");
-              }}
-              className="border-b p-4 mt-3 min-w-full cursor-pointer"
-            >
-              グラフ
-            </button>
+        {(screen === "home" || screen === "tmList" || screen === "form") && (
+          <div>
+            <div className="pb-1 pt-1 flex items-center justify-center">
+              {periodLabel}
+            </div>
+            <Summary records={filteredRecords} exchange={exchangeMoney} />
+
+            <div>
+              <div className="grid grid-cols-2 m-2">
+                <button
+                  onClick={() => {
+                    setScreen("tmList");
+                    setSelectedYear(null);
+                    setSelectedMonth(null);
+                    setSelectedDay(null);
+                  }}
+                  className="border-b p-4 mt-3 min-w-full cursor-pointer"
+                >
+                  履歴一覧
+                </button>
+                <button
+                  onClick={() => {
+                    setScreen("form");
+                  }}
+                  className="border-b p-4 mt-3 min-w-full cursor-pointer"
+                >
+                  ＋新規登録
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
         <div>
           {/* ==============履歴一覧============== */}
           {/* ===年月別フィルタリング=== */}
-          {(screen === "tmList" || screen === "chart") && (
+          {(screen === "home" || screen === "tmList" || screen === "chart") && (
             <div className="flex min-h-[11vh]">
               <div>
                 <div className="flex">
@@ -173,7 +170,6 @@ function App() {
                   >
                     全期間
                   </button>
-
                   <div className="flex">
                     {years.map((year) => {
                       return (
@@ -213,9 +209,8 @@ function App() {
                   {selectedMonth !== null &&
                     days.map((day) => {
                       return (
-                        <div>
+                        <div key={day}>
                           <button
-                            key={day}
                             className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedDay === day ? "bg-gray-300" : ""}`}
                             onClick={() => setSelectedDay(day)}
                           >
@@ -229,28 +224,48 @@ function App() {
             </div>
           )}
           {/* ===履歴詳細=== */}
-          <div>
-            {screen === "tmList" && (
-              <div className="h-[40vh] overflow-y-auto overscroll-contain p-3">
-                <RecordList
-                  records={filteredRecords}
-                  onDelete={handleDelete}
-                  exchange={exchangeMoney}
-                />
-              </div>
-            )}
-          </div>
+          {(screen === "home" || screen === "tmList") && (
+            <div className="h-[40vh] overflow-y-auto overscroll-contain p-3">
+              <RecordList
+                records={filteredRecords}
+                onDelete={handleDelete}
+                exchange={exchangeMoney}
+              />
+            </div>
+          )}
           {/* ==============新規登録フォーム============== */}
           <div>
             {screen === "form" && <RecordForm onAdd={handleAddRecord} />}
           </div>
           {/* ==============グラフ============== */}
-          {screen === "chart" && <CashFlowChart records={filteredRecords} />}
+          {screen === "chart" && (
+            <CashFlowChart
+              records={filteredRecords}
+              periodLabel={periodLabel}
+            />
+          )}
         </div>
       </div>
       <div className="border-t p-3 grid grid-cols-3">
-        <button className="cursor-pointer">グラフ</button>
-        <button className="cursor-pointer">ホーム</button>
+        <button
+          onClick={() => {
+            setScreen("chart");
+          }}
+          className="cursor-pointer"
+        >
+          グラフ
+        </button>
+        <button
+          className="cursor-pointer"
+          onClick={() => {
+            setScreen("home");
+            setSelectedYear(null);
+            setSelectedMonth(null);
+            setSelectedDay(null);
+          }}
+        >
+          ホーム
+        </button>
         <button className="cursor-pointer">ハンド履歴</button>
       </div>
     </div>

@@ -12,9 +12,10 @@ import type { RecordItems } from "../types/type";
 
 type Props = {
   records: RecordItems[];
+  periodLabel: string;
 };
 
-export const CashFlowChart = ({ records }: Props) => {
+export const CashFlowChart = ({ records, periodLabel }: Props) => {
   const sortedData = [...records].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   );
@@ -45,7 +46,8 @@ export const CashFlowChart = ({ records }: Props) => {
   const maxCumProfit = Math.max(...cumulativeData.map((c) => c.cumProfit));
 
   return (
-    <div className="h-[40vh] w-full items-bottom">
+    <div className="h-[40vh] w-full">
+      <div>{periodLabel}</div>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={cumulativeData}
