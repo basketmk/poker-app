@@ -5,6 +5,7 @@ import { Summary } from "./components/Summary";
 import type { RecordItems } from "./types/type";
 import { RecordForm } from "./components/RecordForm";
 import { CashFlowChart } from "./components/CashFlowChart";
+import { HandHistory } from "./components/HandHistory";
 
 function App() {
   const STORAGE_KEY = "poker_record";
@@ -112,7 +113,7 @@ function App() {
             ポーカー収支管理アプリ
           </h1>
           <div className="flex items-center justify-end gap-1 text-sm">
-            <p className="">円表示(USD/JPY {USD_to_JPY})</p>
+            <p className="pb-1">円表示(USD/JPY {USD_to_JPY})</p>
             <input
               className="ml-1 w-3 h-3"
               type="checkbox"
@@ -244,9 +245,11 @@ function App() {
               periodLabel={periodLabel}
             />
           )}
-          {screen === "hand" && <div>ハンド履歴</div>}
+          {/* ==============ハンド履歴============== */}
+          {screen === "hand" && <HandHistory />}
         </div>
       </div>
+      {/* ==============画面下部ボタン============== */}
       <div className="border-t p-3 grid grid-cols-3">
         <button
           onClick={() => {
