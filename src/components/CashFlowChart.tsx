@@ -58,7 +58,7 @@ export const CashFlowChart = ({ records }: Props) => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <Line dataKey={"cumProfit"} name="累計収支" />
+          <Line dataKey={"cumProfit"} name="累計収支(USD)" />
           <YAxis domain={[-maxCumProfit - 10, maxCumProfit + 10]} />
           <Legend />
           <Tooltip contentStyle={{ fontSize: "12px" }} />

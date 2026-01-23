@@ -105,144 +105,153 @@ function App() {
   };
 
   return (
-    <div className="h-screen p-1">
-      <div className="mb-1 border-b h-[8vh]">
-        <h1 className="flex items-center justify-center mb-1 text-3xl">
-          ポーカー収支管理アプリ
-        </h1>
-        <div className="flex items-center justify-end gap-1 text-sm">
-          <p className="">円表示(USD/JPY {USD_to_JPY})</p>
-          <input
-            className="ml-1 w-3 h-3"
-            type="checkbox"
-            checked={isJPY}
-            onChange={(e) => setIsJPY(e.target.checked)}
-          ></input>
+    <div className="h-[100vh]">
+      <div className="h-[90vh]">
+        <div className="mb-1 border-b">
+          <h1 className="flex items-center justify-center text-xl">
+            ポーカー収支管理アプリ
+          </h1>
+          <div className="flex items-center justify-end gap-1 text-sm">
+            <p className="">円表示(USD/JPY {USD_to_JPY})</p>
+            <input
+              className="ml-1 w-3 h-3"
+              type="checkbox"
+              checked={isJPY}
+              onChange={(e) => setIsJPY(e.target.checked)}
+            ></input>
+          </div>
         </div>
-      </div>
-      <div className="pb-1 pt-1 flex items-center justify-center">
-        {periodLabel}
-      </div>
-      <Summary records={filteredRecords} exchange={exchangeMoney} />
-      <div>
-        <div className="grid grid-cols-3 m-2">
-          <button
-            onClick={() => {
-              setScreen("tmList");
-              setSelectedYear(null);
-              setSelectedMonth(null);
-              setSelectedDay(null);
-            }}
-            className="border-b p-4 mt-3 min-w-full cursor-pointer"
-          >
-            履歴一覧
-          </button>
-          <button
-            onClick={() => {
-              setScreen("form");
-            }}
-            className="border-b p-4 mt-3 min-w-full cursor-pointer"
-          >
-            ＋新規登録
-          </button>
-          <button
-            onClick={() => {
-              setScreen("chart");
-            }}
-            className="border-b p-4 mt-3 min-w-full cursor-pointer"
-          >
-            グラフ
-          </button>
+        <div className="pb-1 pt-1 flex items-center justify-center">
+          {periodLabel}
         </div>
-      </div>
-      <div>
-        {/* ==============履歴一覧============== */}
-        {/* ===年月別フィルタリング=== */}
-        {(screen === "tmList" || screen === "chart") && (
-          <div className="flex min-h-[11vh]">
-            <div>
-              <div className="flex">
-                <button
-                  className={`items-left border rounded text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === null && selectedMonth === null ? "bg-gray-300" : ""}`}
-                  onClick={() => {
-                    setSelectedYear(null);
-                    setSelectedMonth(null);
-                    setSelectedDay(null);
-                  }}
-                >
-                  全期間
-                </button>
-
+        <Summary records={filteredRecords} exchange={exchangeMoney} />
+        <div>
+          <div className="grid grid-cols-3 m-2">
+            <button
+              onClick={() => {
+                setScreen("tmList");
+                setSelectedYear(null);
+                setSelectedMonth(null);
+                setSelectedDay(null);
+              }}
+              className="border-b p-4 mt-3 min-w-full cursor-pointer"
+            >
+              履歴一覧
+            </button>
+            <button
+              onClick={() => {
+                setScreen("form");
+              }}
+              className="border-b p-4 mt-3 min-w-full cursor-pointer"
+            >
+              ＋新規登録
+            </button>
+            <button
+              onClick={() => {
+                setScreen("chart");
+              }}
+              className="border-b p-4 mt-3 min-w-full cursor-pointer"
+            >
+              グラフ
+            </button>
+          </div>
+        </div>
+        <div>
+          {/* ==============履歴一覧============== */}
+          {/* ===年月別フィルタリング=== */}
+          {(screen === "tmList" || screen === "chart") && (
+            <div className="flex min-h-[11vh]">
+              <div>
                 <div className="flex">
-                  {years.map((year) => {
-                    return (
-                      <button
-                        key={year}
-                        className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === year ? "bg-gray-300" : ""}`}
-                        onClick={() => {
-                          setSelectedYear(year);
-                          setSelectedMonth(null);
-                          setSelectedDay(null);
-                        }}
-                      >
-                        {year}年
-                      </button>
-                    );
-                  })}
+                  <button
+                    className={`items-left border rounded text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === null && selectedMonth === null ? "bg-gray-300" : ""}`}
+                    onClick={() => {
+                      setSelectedYear(null);
+                      setSelectedMonth(null);
+                      setSelectedDay(null);
+                    }}
+                  >
+                    全期間
+                  </button>
+
+                  <div className="flex">
+                    {years.map((year) => {
+                      return (
+                        <button
+                          key={year}
+                          className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === year ? "bg-gray-300" : ""}`}
+                          onClick={() => {
+                            setSelectedYear(year);
+                            setSelectedMonth(null);
+                            setSelectedDay(null);
+                          }}
+                        >
+                          {year}年
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="flex">
+                  {selectedYear !== null &&
+                    months.map((month) => {
+                      return (
+                        <button
+                          key={month}
+                          className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedMonth === month ? "bg-gray-300" : ""}`}
+                          onClick={() => {
+                            setSelectedMonth(month);
+                            setSelectedDay(null);
+                          }}
+                        >
+                          {month}月
+                        </button>
+                      );
+                    })}
+                </div>
+                <div className="flex">
+                  {selectedMonth !== null &&
+                    days.map((day) => {
+                      return (
+                        <div>
+                          <button
+                            key={day}
+                            className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedDay === day ? "bg-gray-300" : ""}`}
+                            onClick={() => setSelectedDay(day)}
+                          >
+                            {day}日
+                          </button>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
-              <div className="flex">
-                {selectedYear !== null &&
-                  months.map((month) => {
-                    return (
-                      <button
-                        key={month}
-                        className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedMonth === month ? "bg-gray-300" : ""}`}
-                        onClick={() => {
-                          setSelectedMonth(month);
-                          setSelectedDay(null);
-                        }}
-                      >
-                        {month}月
-                      </button>
-                    );
-                  })}
-              </div>
-              <div className="flex">
-                {selectedMonth !== null &&
-                  days.map((day) => {
-                    return (
-                      <div>
-                        <button
-                          key={day}
-                          className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedDay === day ? "bg-gray-300" : ""}`}
-                          onClick={() => setSelectedDay(day)}
-                        >
-                          {day}日
-                        </button>
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-          </div>
-        )}
-        {/* ===履歴詳細=== */}
-        <div>
-          {screen === "tmList" && (
-            <div className="h-[45vh] overflow-y-auto overscroll-contain p-3">
-              <RecordList
-                records={filteredRecords}
-                onDelete={handleDelete}
-                exchange={exchangeMoney}
-              />
             </div>
           )}
+          {/* ===履歴詳細=== */}
+          <div>
+            {screen === "tmList" && (
+              <div className="h-[40vh] overflow-y-auto overscroll-contain p-3">
+                <RecordList
+                  records={filteredRecords}
+                  onDelete={handleDelete}
+                  exchange={exchangeMoney}
+                />
+              </div>
+            )}
+          </div>
+          {/* ==============新規登録フォーム============== */}
+          <div>
+            {screen === "form" && <RecordForm onAdd={handleAddRecord} />}
+          </div>
+          {/* ==============グラフ============== */}
+          {screen === "chart" && <CashFlowChart records={filteredRecords} />}
         </div>
-        {/* ==============新規登録フォーム============== */}
-        <div>{screen === "form" && <RecordForm onAdd={handleAddRecord} />}</div>
-        {/* ==============グラフ============== */}
-        {screen === "chart" && <CashFlowChart records={filteredRecords} />}
+      </div>
+      <div className="border-t p-3 grid grid-cols-3">
+        <button className="cursor-pointer">グラフ</button>
+        <button className="cursor-pointer">ホーム</button>
+        <button className="cursor-pointer">ハンド履歴</button>
       </div>
     </div>
   );
