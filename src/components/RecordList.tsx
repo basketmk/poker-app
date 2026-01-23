@@ -9,7 +9,7 @@ type Props = {
 
 export const RecordList = ({ records, onDelete, exchange }: Props) => {
   return (
-    <div>
+    <div className="">
       {records.map((record) => (
         <RecordItem
           key={record.id}

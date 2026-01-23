@@ -13,7 +13,7 @@ export const RecordItem = ({ record, onDelete, exchange }: Props) => {
   const profit = record.buyOut - record.buyIn;
   const isITM: boolean = record.buyOut > 0;
   return (
-    <div className="ring ring-zinc-900 rounded-xl mt-3 mr-3 p-4 text-left gap-3 flex">
+    <div className="ring ring-zinc-900 rounded-xl mt-2 mr-2 p-2 text-left gap-3 flex">
       {/* ==============トーナメント内容============== */}
       <div className="flex-1 min-w-0">
         <div className="flex gap-3 items-center">

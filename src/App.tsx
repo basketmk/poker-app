@@ -158,8 +158,8 @@ function App() {
       <div>
         {/* ==============履歴一覧============== */}
         {/* ===年月別フィルタリング=== */}
-        <div className="flex min-h-[11vh]">
-          {(screen === "tmList" || screen === "chart") && (
+        {(screen === "tmList" || screen === "chart") && (
+          <div className="flex min-h-[11vh]">
             <div>
               <div className="flex">
                 <button
@@ -225,8 +225,8 @@ function App() {
                   })}
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
         {/* ===履歴詳細=== */}
         <div>
           {screen === "tmList" && (
