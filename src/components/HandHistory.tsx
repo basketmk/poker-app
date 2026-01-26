@@ -6,16 +6,21 @@ type Props = {
 };
 
 export const HandHistory = ({ tournaments }: Props) => {
-  const [tournamentId, setTournamentId] = useState<string | null>(null);
+  const [selectedTournamentId, setTournamentId] = useState<string | null>(null);
+  
 
-  if (tournamentId === null) {
+  const selectedTournament = tournaments.find(
+    (t) => t.id === selectedTournamentId,
+  );
+
+  if (selectedTournamentId === null) {
     return (
       <div>
         <div>トーナメント一覧</div>
         <div className="h-[80vh] overflow-y-auto overscroll-contain">
           {tournaments.map((tournament) => (
             <button
-              className="flex items-center justify-between border rounded-xl p-3 m-2 w-[88vh]  cursor-pointer"
+              className="flex items-center justify-between border rounded-xl p-3 mt-3 w-full cursor-pointer"
               onClick={() => setTournamentId(tournament.id)}
               key={tournament.id}
             >
@@ -41,6 +46,31 @@ export const HandHistory = ({ tournaments }: Props) => {
           ハンド新規作成＋
         </button>
       </div>
+
+      {selectedTournament != null && (
+        <div>
+          <div className="border rounded-2xl p-4 m-3 bg-gray-200">
+            <div className="text-sm">{selectedTournament.date}</div>
+            <div className="text-xl font-bold">{selectedTournament.name}</div>
+          </div>
+          <div className="flex border p-2 m-2 items-center justify-between">
+            <div className="gap-3 flex">
+              <div>AhQs</div>
+              <div className="text-red-500">V S</div>
+              <div>ThTs</div>
+            </div>
+            <div>メモ（任意）</div>
+          </div>
+          <div className="flex border p-2 m-2 items-center justify-between">
+            <div className="gap-3 flex">
+              <div>AhQs</div>
+              <div className="text-red-500">V S</div>
+              <div>ThTs</div>
+            </div>
+            <div>メモ（任意）</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
