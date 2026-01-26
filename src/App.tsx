@@ -246,7 +246,10 @@ function App() {
             />
           )}
           {/* ==============ハンド履歴============== */}
-          {screen === "hand" && <HandHistory tournaments={filteredRecords} />}
+          {screen === "hand" && (
+            <HandHistory tournaments={filteredRecords} />
+          )}
+        
         </div>
       </div>
       {/* ==============画面下部ボタン============== */}

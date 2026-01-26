@@ -13,11 +13,12 @@ export const HandHistory = ({ tournaments }: Props) => {
     (t) => t.id === selectedTournamentId,
   );
 
+  {/* ==============トーナメント未選択時============== */}
   if (selectedTournamentId === null) {
     return (
-      <div>
-        <div>トーナメント一覧</div>
-        <div className="h-[80vh] overflow-y-auto overscroll-contain">
+      <div className="h-[90vh]">
+        <div className="text-xl font-bold p-3">トーナメント一覧</div>
+        <div className="h-[75vh] overflow-y-auto overscroll-contain">
           {tournaments.map((tournament) => (
             <button
               className="flex items-center justify-between border rounded-xl p-3 mt-3 w-full cursor-pointer"
@@ -53,18 +54,69 @@ export const HandHistory = ({ tournaments }: Props) => {
             ハンド新規作成＋
           </button>
         </div>
-        {/* ==============ハンド新規登録フォーム============== */}
-        {isFormOpen === true && (
-          <div>
-            <div>ハンド新規作成フォーム</div>
-            <div>ポジション</div>
-          </div>
-        )}
         {/* ==============選択されたトーナメント============== */}
         {selectedTournament != null && (
           <div className="border rounded-2xl p-4 m-3 bg-gray-200">
             <div className="text-sm">{selectedTournament.date}</div>
             <div className="text-xl font-bold">{selectedTournament.name}</div>
+          </div>
+        )}
+        {/* ==============ハンド新規登録フォーム============== */}
+        {isFormOpen === true && (
+          <div className="p-3">
+            <div className="mb-3">ハンド新規作成フォーム</div>
+            <div className="flex items-center justify-between">
+              <div className="gap-3 grid grid-cols-5">
+                <div>
+                  <div>(Heroポジション)</div>
+                  <input
+                    className="border w-full h-9 p-2 rounded-xl"
+                    type="text"
+                    placeholder="例) BTN"
+                  />
+                </div>
+                <div>
+                  <div>(Heroハンド)</div>
+                  <input
+                    className="border w-full h-9 p-2 rounded-xl"
+                    type="text"
+                    placeholder="例) AhQh"
+                  />
+                </div>
+                <div className="text-red-500 flex items-center justify-center">
+                  V S
+                </div>
+                <div>
+                  <div>(Vilianポジション)</div>
+                  <input
+                    className="border w-full h-9 p-3 rounded-xl"
+                    type="text"
+                    placeholder="例) BB"
+                  />
+                </div>
+                <div>
+                  <div>(vilianハンド)</div>
+                  <input
+                    className="border w-full h-9 p-3 rounded-xl"
+                    type="text"
+                    placeholder="例) ThTs"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="text-left mt-3 text-break p-2">メモ（任意）</div>
+              <textarea
+                className="items-left w-full border rounded-xl p-2"
+                rows={4}
+              />
+            </div>
+            <button
+              type="submit"
+              className="ring rounded-xl min-w-full p-2 mt-4 bg-green-300 cursor-pointer"
+            >
+              登録する
+            </button>
           </div>
         )}
       </div>
