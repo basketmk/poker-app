@@ -1,11 +1,13 @@
-import type { RecordItems } from "../types/type";
+import type { RecordItems, HandFormValue, HandItem } from "../types/type";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 type Props = {
   tournaments: RecordItems[];
+  onAddHand: (newHand: HandItem) => void;
 };
 
-export const HandHistory = ({ tournaments }: Props) => {
+export const HandHistory = ({ tournaments, onAddHand }: Props) => {
   const [selectedTournamentId, setTournamentId] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState<true | false>(false);
 
@@ -13,7 +15,34 @@ export const HandHistory = ({ tournaments }: Props) => {
     (t) => t.id === selectedTournamentId,
   );
 
-  {/* ==============トーナメント未選択時============== */}
+  const { register, handleSubmit, reset } = useForm<HandFormValue>({
+    defaultValues: {
+      heroPos: "",
+      heroHand: "",
+      vilianPos: "",
+      vilianHand: "",
+      memo: "",
+    },
+  });
+
+  const onSubmit = (value: HandFormValue) => {
+    if (selectedTournamentId === null) return;
+    const newHand: HandItem = {
+      id: crypto.randomUUID(),
+      tournamentId: selectedTournamentId,
+      heroPos: value.heroPos,
+      heroHand: value.heroHand,
+      vilianPos: value.vilianPos,
+      vilianHand: value.vilianHand,
+      memo: value.memo,
+    };
+
+    onAddHand(newHand);
+    reset();
+    setIsFormOpen(false);
+  };
+
+  //==============トーナメント未選択時==============
   if (selectedTournamentId === null) {
     return (
       <div className="h-[90vh]">
@@ -34,6 +63,7 @@ export const HandHistory = ({ tournaments }: Props) => {
     );
   }
 
+  //==============トーナメント選択時==============
   return (
     <div className="h-[80vh] flex flex-col">
       <div className="">
@@ -63,7 +93,7 @@ export const HandHistory = ({ tournaments }: Props) => {
         )}
         {/* ==============ハンド新規登録フォーム============== */}
         {isFormOpen === true && (
-          <div className="p-3">
+          <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">ハンド新規作成フォーム</div>
             <div className="flex items-center justify-between">
               <div className="gap-3 grid grid-cols-5">
@@ -73,6 +103,7 @@ export const HandHistory = ({ tournaments }: Props) => {
                     className="border w-full h-9 p-2 rounded-xl"
                     type="text"
                     placeholder="例) BTN"
+                    {...register("heroPos")}
                   />
                 </div>
                 <div>
@@ -81,6 +112,7 @@ export const HandHistory = ({ tournaments }: Props) => {
                     className="border w-full h-9 p-2 rounded-xl"
                     type="text"
                     placeholder="例) AhQh"
+                    {...register("heroHand")}
                   />
                 </div>
                 <div className="text-red-500 flex items-center justify-center">
@@ -92,6 +124,7 @@ export const HandHistory = ({ tournaments }: Props) => {
                     className="border w-full h-9 p-3 rounded-xl"
                     type="text"
                     placeholder="例) BB"
+                    {...register("vilianPos")}
                   />
                 </div>
                 <div>
@@ -100,6 +133,7 @@ export const HandHistory = ({ tournaments }: Props) => {
                     className="border w-full h-9 p-3 rounded-xl"
                     type="text"
                     placeholder="例) ThTs"
+                    {...register("vilianHand")}
                   />
                 </div>
               </div>
@@ -109,6 +143,7 @@ export const HandHistory = ({ tournaments }: Props) => {
               <textarea
                 className="items-left w-full border rounded-xl p-2"
                 rows={4}
+                {...register("memo")}
               />
             </div>
             <button
@@ -117,7 +152,7 @@ export const HandHistory = ({ tournaments }: Props) => {
             >
               登録する
             </button>
-          </div>
+          </form>
         )}
       </div>
       {/* ==============ハンド履歴============== */}

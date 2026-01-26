@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { RecordList } from "./components/RecordList";
 import { Summary } from "./components/Summary";
-import type { RecordItems } from "./types/type";
+import type { RecordItems, HandItem } from "./types/type";
 import { RecordForm } from "./components/RecordForm";
 import { CashFlowChart } from "./components/CashFlowChart";
 import { HandHistory } from "./components/HandHistory";
@@ -103,6 +103,12 @@ function App() {
       return isMinus ? `-￥${JPY}` : `￥${JPY}`;
     }
     return isMinus ? `-$${n}` : `$${n}`;
+  };
+
+  //==============ハンド履歴に用いる==============
+  const [hands, setHands] = useState<HandItem[]>([]);
+  const handleAddHand = (newHand: HandItem) => {
+    setHands((prev) => [newHand, ...prev]);
   };
 
   return (
@@ -247,9 +253,8 @@ function App() {
           )}
           {/* ==============ハンド履歴============== */}
           {screen === "hand" && (
-            <HandHistory tournaments={filteredRecords} />
+            <HandHistory tournaments={filteredRecords} onAddHand={handleAddHand} />
           )}
-        
         </div>
       </div>
       {/* ==============画面下部ボタン============== */}
