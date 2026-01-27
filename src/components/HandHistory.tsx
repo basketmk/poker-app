@@ -17,6 +17,7 @@ export const HandHistory = ({
 }: Props) => {
   const [selectedTournamentId, setTournamentId] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState<true | false>(false);
+  const [selectedMemo, setSelectedMemo] = useState<string | null>(null);
 
   const selectedTournament = tournaments.find(
     (t) => t.id === selectedTournamentId,
@@ -97,6 +98,7 @@ export const HandHistory = ({
             onClick={() => {
               setTournamentId(null);
               setIsFormOpen(false);
+              setSelectedMemo(null);
             }}
           >
             一覧へ
@@ -217,8 +219,24 @@ export const HandHistory = ({
                   </button>
                 </div>
                 {hand.memo && (
-                  <div className="mt-1 p-2 m-2 text-sm break-word text-left">
-                    (メモ)　{hand.memo}
+                  <div className="items-left">
+                    <button
+                      className="p-1 m-2 text-sm items-left border rounded-3xl cursor-pointer"
+                      onClick={() => {
+                        setSelectedMemo((prev) =>
+                          prev === hand.memo ? null : hand.memo,
+                        );
+                      }}
+                    >
+                      メモ
+                    </button>
+                  </div>
+                )}
+                {selectedMemo === hand.memo && (
+                  <div className="items-left">
+                    <div className="p-1 m-2 text-sm items-left border rounded-3xl">
+                      {selectedMemo}
+                    </div>
                   </div>
                 )}
               </div>
