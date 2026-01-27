@@ -23,6 +23,7 @@ export const HandHistory = ({
     (t) => t.id === selectedTournamentId,
   );
 
+  //==============メモ選択関数==============
   const toggleMemo = (id: string) => {
     setSelectedMemoId((prev) => (prev === id ? null : id));
   };
@@ -189,6 +190,8 @@ export const HandHistory = ({
       {selectedTournament != null && (
         <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
           {filteredHands.map((hand) => {
+            const isOpenMemo = selectedMemoId === hand.id;
+
             return (
               <div className="border p-2 m-3">
                 <div className="flex items-center justify-between">
@@ -226,26 +229,14 @@ export const HandHistory = ({
                   <div className="">
                     <div className="flex items-left">
                       <div className="ml-3">メモ</div>
-                      {selectedMemoId !== hand.id && (
-                        <button
-                          className="ml-3 text-sm rounded-3xl cursor-pointer w-8 h-5"
-                          onClick={() => {
-                            toggleMemo(hand.id);
-                          }}
-                        >
-                          ▼
-                        </button>
-                      )}
-                      {selectedMemoId === hand.id && (
-                        <button
-                          className="ml-3 text-sm rounded-3xl cursor-pointer w-8 h-5"
-                          onClick={() => {
-                            toggleMemo(hand.id);
-                          }}
-                        >
-                          ▲
-                        </button>
-                      )}
+                      <button
+                        className="ml-3 text-sm rounded-3xl cursor-pointer w-8 h-5"
+                        onClick={() => {
+                          toggleMemo(hand.id);
+                        }}
+                      >
+                        {isOpenMemo ? "▲" : "▼"}
+                      </button>
                     </div>
                     {selectedMemoId === hand.id && (
                       <div className="items-left">
