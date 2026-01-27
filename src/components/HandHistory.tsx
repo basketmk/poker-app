@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 type Props = {
   tournaments: RecordItems[];
   onAddHand: (newHand: HandItem) => void;
+  hands: HandItem[];
 };
 
-export const HandHistory = ({ tournaments, onAddHand }: Props) => {
+export const HandHistory = ({ tournaments, onAddHand, hands }: Props) => {
   const [selectedTournamentId, setTournamentId] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState<true | false>(false);
 
@@ -62,6 +63,10 @@ export const HandHistory = ({ tournaments, onAddHand }: Props) => {
       </div>
     );
   }
+
+  const filterdHands: HandItem[] = hands.filter(
+    (hand) => selectedTournamentId === hand.tournamentId,
+  );
 
   //==============トーナメント選択時==============
   return (
@@ -158,294 +163,34 @@ export const HandHistory = ({ tournaments, onAddHand }: Props) => {
       {/* ==============ハンド履歴============== */}
       {selectedTournament != null && (
         <div className="overflow-y-auto overscroll-contain p-3">
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
+          {filterdHands.map((hand) => {
+            return (
+              <div className="flex border p-2 m-2 items-center justify-between">
+                <div className="gap-4 flex">
+                  <div>
+                    <div>(Heroポジション)</div>
+                    <div>{hand.heroPos}</div>
+                  </div>
+                  <div>
+                    <div>(Heroハンド)</div>
+                    <div>{hand.heroHand}</div>
+                  </div>
+                  <div className="text-red-500 flex items-center justify-center">
+                    V S
+                  </div>
+                  <div>
+                    <div>(Vilianポジション)</div>
+                    <div>{hand.vilianPos}</div>
+                  </div>
+                  <div>
+                    <div>(vilianハンド)</div>
+                    <div>{hand.vilianHand}</div>
+                  </div>
+                </div>
+                <div>{hand.memo}</div>
               </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
-          <div className="flex border p-2 m-2 items-center justify-between">
-            <div className="gap-4 flex">
-              <div>
-                <div>(Heroポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(Heroハンド)</div>
-                <div>AhQh</div>
-              </div>
-              <div className="text-red-500 flex items-center justify-center">
-                V S
-              </div>
-              <div>
-                <div>(Vilianポジション)</div>
-                <div>BTN</div>
-              </div>
-              <div>
-                <div>(vilianハンド)</div>
-                <div>ThTs</div>
-              </div>
-            </div>
-            <div>メモ（任意）</div>
-          </div>
+            );
+          })}
         </div>
       )}
     </div>

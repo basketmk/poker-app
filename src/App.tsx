@@ -253,7 +253,11 @@ function App() {
           )}
           {/* ==============ハンド履歴============== */}
           {screen === "hand" && (
-            <HandHistory tournaments={filteredRecords} onAddHand={handleAddHand} />
+            <HandHistory
+              tournaments={filteredRecords}
+              onAddHand={handleAddHand}
+              hands={hands}
+            />
           )}
         </div>
       </div>
