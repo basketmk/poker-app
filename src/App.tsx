@@ -11,7 +11,7 @@ function App() {
   const STORAGE_KEY = "poker_record";
   const HAND_STORAGE_KEY = "poker_hand_record";
 
-  //==============履歴削除用関数==============
+  //==============トーナメント履歴削除用関数==============
   const handleDelete = (record: RecordItems) => {
     if (!confirm(`${record.name} を削除しますか？`)) return;
 
@@ -20,16 +20,22 @@ function App() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
       return newItems;
     });
+
+    setHands((prev) => {
+      const newHands = prev.filter((h) => h.tournamentId !== record.id);
+      localStorage.setItem(HAND_STORAGE_KEY, JSON.stringify(newHands));
+      return newHands;
+    });
   };
 
-  //==============トーナメントレコード==============
+  //==============トーナメント履歴==============
   const [records, setRecords] = useState<RecordItems[]>(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) return [];
     return JSON.parse(stored) as RecordItems[];
   });
 
-  //==============トーナメントレコード追加関数==============
+  //==============トーナメント履歴追加関数==============
   const handleAddRecord = (newRecord: RecordItems) => {
     setRecords((prev) => {
       const newData = [newRecord, ...prev].sort(
