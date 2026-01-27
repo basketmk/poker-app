@@ -6,9 +6,15 @@ type Props = {
   tournaments: RecordItems[];
   onAddHand: (newHand: HandItem) => void;
   hands: HandItem[];
+  onDeleteHand: (hand: HandItem) => void;
 };
 
-export const HandHistory = ({ tournaments, onAddHand, hands }: Props) => {
+export const HandHistory = ({
+  tournaments,
+  onAddHand,
+  hands,
+  onDeleteHand,
+}: Props) => {
   const [selectedTournamentId, setTournamentId] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState<true | false>(false);
 
@@ -178,29 +184,34 @@ export const HandHistory = ({ tournaments, onAddHand, hands }: Props) => {
         <div className="flex-1 overflow-y-auto overscroll-contain p-3">
           {filteredHands.map((hand) => {
             return (
-              <div className="flex border p-2 m-2 items-center justify-between">
-                <div className="gap-4 flex">
-                  <div>
-                    <div>(Heroポジション)</div>
-                    <div>{hand.heroPos}</div>
+              <div className="flex border items-center justify-between">
+                <div className="flex p-2 m-2 items-center justify-between">
+                  <div className="gap-4 flex">
+                    <div>
+                      <div>(Heroポジション)</div>
+                      <div>{hand.heroPos}</div>
+                    </div>
+                    <div>
+                      <div>(Heroハンド)</div>
+                      <div>{hand.heroHand}</div>
+                    </div>
+                    <div className="text-red-500 flex items-center justify-center">
+                      V S
+                    </div>
+                    <div>
+                      <div>(Vilianポジション)</div>
+                      <div>{hand.vilianPos}</div>
+                    </div>
+                    <div>
+                      <div>(vilianハンド)</div>
+                      <div>{hand.vilianHand}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div>(Heroハンド)</div>
-                    <div>{hand.heroHand}</div>
-                  </div>
-                  <div className="text-red-500 flex items-center justify-center">
-                    V S
-                  </div>
-                  <div>
-                    <div>(Vilianポジション)</div>
-                    <div>{hand.vilianPos}</div>
-                  </div>
-                  <div>
-                    <div>(vilianハンド)</div>
-                    <div>{hand.vilianHand}</div>
-                  </div>
+                  <div>{hand.memo}</div>
                 </div>
-                <div>{hand.memo}</div>
+                <button className="pr-3" onClick={() => onDeleteHand(hand)}>
+                  ×
+                </button>
               </div>
             );
           })}

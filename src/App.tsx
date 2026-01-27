@@ -130,6 +130,16 @@ function App() {
     });
   };
 
+  //==============ハンド削除関数==============
+  const handleDeleteHand = (hand: HandItem) => {
+    if (!confirm("ハンドを削除しますか？")) return;
+    setHands((prev) => {
+      const newHands = prev.filter((h) => h.id !== hand.id);
+      localStorage.setItem(HAND_STORAGE_KEY, JSON.stringify(newHands));
+      return newHands;
+    });
+  };
+
   return (
     <div className="h-[100vh]">
       <div className="h-[90vh]">
@@ -276,6 +286,7 @@ function App() {
               tournaments={filteredRecords}
               onAddHand={handleAddHand}
               hands={hands}
+              onDeleteHand={handleDeleteHand}
             />
           )}
         </div>
