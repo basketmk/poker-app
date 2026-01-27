@@ -17,11 +17,15 @@ export const HandHistory = ({
 }: Props) => {
   const [selectedTournamentId, setTournamentId] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState<true | false>(false);
-  const [selectedMemo, setSelectedMemo] = useState<string | null>(null);
+  const [selectedMemoId, setSelectedMemoId] = useState<string | null>(null);
 
   const selectedTournament = tournaments.find(
     (t) => t.id === selectedTournamentId,
   );
+
+  const toggleMemo = (id: string) => {
+    setSelectedMemoId((prev) => (prev === id ? null : id));
+  };
 
   const { register, handleSubmit, reset } = useForm<HandFormValue>({
     defaultValues: {
@@ -98,7 +102,7 @@ export const HandHistory = ({
             onClick={() => {
               setTournamentId(null);
               setIsFormOpen(false);
-              setSelectedMemo(null);
+              setSelectedMemoId(null);
             }}
           >
             一覧へ
@@ -183,7 +187,7 @@ export const HandHistory = ({
       </div>
       {/* ==============ハンド履歴============== */}
       {selectedTournament != null && (
-        <div className="flex-1 overflow-y-auto overscroll-contain p-3">
+        <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
           {filteredHands.map((hand) => {
             return (
               <div className="border p-2 m-3">
@@ -219,24 +223,37 @@ export const HandHistory = ({
                   </button>
                 </div>
                 {hand.memo && (
-                  <div className="items-left">
-                    <button
-                      className="p-1 m-2 text-sm items-left border rounded-3xl cursor-pointer"
-                      onClick={() => {
-                        setSelectedMemo((prev) =>
-                          prev === hand.memo ? null : hand.memo,
-                        );
-                      }}
-                    >
-                      メモ
-                    </button>
-                  </div>
-                )}
-                {selectedMemo === hand.memo && (
-                  <div className="items-left">
-                    <div className="p-1 m-2 text-sm items-left border rounded-3xl">
-                      {selectedMemo}
+                  <div className="">
+                    <div className="flex items-left">
+                      <div className="ml-3">メモ</div>
+                      {selectedMemoId !== hand.id && (
+                        <button
+                          className="ml-3 text-sm rounded-3xl cursor-pointer w-8 h-5"
+                          onClick={() => {
+                            toggleMemo(hand.id);
+                          }}
+                        >
+                          ▼
+                        </button>
+                      )}
+                      {selectedMemoId === hand.id && (
+                        <button
+                          className="ml-3 text-sm rounded-3xl cursor-pointer w-8 h-5"
+                          onClick={() => {
+                            toggleMemo(hand.id);
+                          }}
+                        >
+                          ▲
+                        </button>
+                      )}
                     </div>
+                    {selectedMemoId === hand.id && (
+                      <div className="items-left">
+                        <div className="p-3 m-2 text-sm items-left border rounded-3xl">
+                          {hand.memo}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
