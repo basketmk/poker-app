@@ -9,6 +9,7 @@ import { HandHistory } from "./components/HandHistory";
 
 function App() {
   const STORAGE_KEY = "poker_record";
+  const HAND_STORAGE_KEY = "poker_hand_record";
 
   //==============履歴削除用関数==============
   const handleDelete = (record: RecordItems) => {
@@ -21,12 +22,14 @@ function App() {
     });
   };
 
+  //==============トーナメントレコード==============
   const [records, setRecords] = useState<RecordItems[]>(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) return [];
     return JSON.parse(stored) as RecordItems[];
   });
 
+  //==============トーナメントレコード追加関数==============
   const handleAddRecord = (newRecord: RecordItems) => {
     setRecords((prev) => {
       const newData = [newRecord, ...prev].sort(
@@ -106,9 +109,19 @@ function App() {
   };
 
   //==============ハンド履歴に用いる==============
-  const [hands, setHands] = useState<HandItem[]>([]);
+  const [hands, setHands] = useState<HandItem[]>(() => {
+    const stored = localStorage.getItem(HAND_STORAGE_KEY);
+    if (!stored) return [];
+    return JSON.parse(stored) as HandItem[];
+  });
+
+  //==============ハンド追加関数==============
   const handleAddHand = (newHand: HandItem) => {
-    setHands((prev) => [newHand, ...prev]);
+    setHands((prev) => {
+      const newData = [newHand, ...prev];
+      localStorage.setItem(HAND_STORAGE_KEY, JSON.stringify(newData));
+      return newData;
+    });
   };
 
   return (

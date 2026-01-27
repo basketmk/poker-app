@@ -35,7 +35,10 @@ export const HandHistory = ({ tournaments, onAddHand, hands }: Props) => {
     const vilianHand = value.vilianHand.trim();
     const memo = value.memo.trim();
 
-    if (!heroPos || !heroHand) return;
+    if (!heroPos || !heroHand || !vilianPos) {
+      alert("Heroポジション・Heroハンド・Vilianポジションを入力してください");
+      return;
+    }
 
     const newHand: HandItem = {
       id: crypto.randomUUID(),
