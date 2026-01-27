@@ -60,7 +60,7 @@ export const RecordItem = ({ record, onDelete, exchange }: Props) => {
       {/* ==============削除ボタン============== */}
       <button
         type="button"
-        className="shrink-0 text-xl leading-none"
+        className="shrink-0 text-xl leading-none cursor-pointer"
         onClick={() => onDelete(record)}
       >
         ×
