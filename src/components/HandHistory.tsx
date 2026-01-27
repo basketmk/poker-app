@@ -28,14 +28,23 @@ export const HandHistory = ({ tournaments, onAddHand, hands }: Props) => {
 
   const onSubmit = (value: HandFormValue) => {
     if (selectedTournamentId === null) return;
+
+    const heroPos = value.heroPos.trim();
+    const heroHand = value.heroHand.trim();
+    const vilianPos = value.vilianPos.trim();
+    const vilianHand = value.vilianHand.trim();
+    const memo = value.memo.trim();
+
+    if (!heroPos || !heroHand) return;
+
     const newHand: HandItem = {
       id: crypto.randomUUID(),
       tournamentId: selectedTournamentId,
-      heroPos: value.heroPos,
-      heroHand: value.heroHand,
-      vilianPos: value.vilianPos,
-      vilianHand: value.vilianHand,
-      memo: value.memo,
+      heroPos,
+      heroHand,
+      vilianPos,
+      vilianHand,
+      memo,
     };
 
     onAddHand(newHand);
@@ -64,7 +73,8 @@ export const HandHistory = ({ tournaments, onAddHand, hands }: Props) => {
     );
   }
 
-  const filterdHands: HandItem[] = hands.filter(
+  //==============トーナメントとハンド履歴の合致==============
+  const filteredHands: HandItem[] = hands.filter(
     (hand) => selectedTournamentId === hand.tournamentId,
   );
 
@@ -84,7 +94,7 @@ export const HandHistory = ({ tournaments, onAddHand, hands }: Props) => {
           </button>
           <button
             className="cursor-pointer border rounded-2xl p-2"
-            onClick={() => setIsFormOpen(true)}
+            onClick={() => setIsFormOpen((prev) => !prev)}
           >
             ハンド新規作成＋
           </button>
@@ -162,8 +172,8 @@ export const HandHistory = ({ tournaments, onAddHand, hands }: Props) => {
       </div>
       {/* ==============ハンド履歴============== */}
       {selectedTournament != null && (
-        <div className="overflow-y-auto overscroll-contain p-3">
-          {filterdHands.map((hand) => {
+        <div className="flex-1 overflow-y-auto overscroll-contain p-3">
+          {filteredHands.map((hand) => {
             return (
               <div className="flex border p-2 m-2 items-center justify-between">
                 <div className="gap-4 flex">
