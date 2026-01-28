@@ -20,6 +20,7 @@ export const HandList = ({
     }
     return result;
   };
+
   return (
     <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
       {hands.map((hand: HandItem) => {
@@ -83,32 +84,42 @@ export const HandList = ({
                 ×
               </button>
             </div>
-            {hand.memo && (
-              <div className="">
-                <div className="flex items-left">
-                  <div className="ml-3">詳細</div>
-                  <button
-                    className="ml-3 text-sm rounded-3xl cursor-pointer w-8 h-5"
-                    onClick={() => {
-                      toggleMemo(hand.id);
-                    }}
-                  >
-                    {isOpenMemo ? "▲" : "▼"}
-                  </button>
-                </div>
-                {selectedMemoId === hand.id && (
-                  <div className="items-left">
-                    <div>ボード</div>
+            <div className="">
+              <div className="flex items-left">
+                <div className="ml-3">詳細</div>
+                <button
+                  className="ml-3 text-sm rounded-3xl cursor-pointer w-8 h-5"
+                  onClick={() => {
+                    toggleMemo(hand.id);
+                  }}
+                >
+                  {isOpenMemo ? "▲" : "▼"}
+                </button>
+              </div>
+              {selectedMemoId === hand.id && (
+                <div className="items-left">
+                  <div className="flex">
+                    <div className="ml-5 mr-3 mt-2 mb-4 h-15 w-15 flex items-center justify-center">
+                      ボード
+                    </div>
                     <div className="flex gap-10 ml-3 mt-2 mb-4">
                       <div className="flex gap-1">
-                        {splitCard(hand.flop).map((f, i) => (
-                          <div
-                            key={i}
-                            className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center"
-                          >
-                            {f}
+                        {splitCard(hand.flop).length === 3 &&
+                          splitCard(hand.flop).map((f, i) => (
+                            <div
+                              key={i}
+                              className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center"
+                            >
+                              {f}
+                            </div>
+                          ))}
+                        {splitCard(hand.flop).length < 3 && (
+                          <div className="flex gap-1">
+                            <div className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center"></div>
+                            <div className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center"></div>
+                            <div className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center"></div>
                           </div>
-                        ))}
+                        )}
                       </div>
                       <div className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center">
                         {hand.turn}
@@ -117,13 +128,20 @@ export const HandList = ({
                         {hand.river}
                       </div>
                     </div>
-                    <div className="p-3 m-2 text-sm items-left border rounded-3xl">
-                      {hand.memo}
-                    </div>
                   </div>
-                )}
-              </div>
-            )}
+                  {hand.memo && (
+                    <div className="flex mt-3">
+                      <div className="ml-5 mr-3 mt-2 mb-4 h-15 w-15 flex items-center justify-center">
+                        メモ
+                      </div>
+                      <div className="p-3 ml-3 mr-10 text-sm items-left border rounded-3xl w-full">
+                        {hand.memo}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         );
       })}
