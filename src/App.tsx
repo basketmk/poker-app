@@ -193,7 +193,7 @@ function App() {
         <div>
           {/* ==============履歴一覧============== */}
           {/* ===年月別フィルタリング=== */}
-          {(screen === "home" || screen === "tmList" || screen === "chart") && (
+          {(screen === "home" || screen === "tmList") && (
             <div className="flex min-h-[11vh]">
               <div>
                 <div className="flex">
@@ -276,10 +276,62 @@ function App() {
           </div>
           {/* ==============グラフ============== */}
           {screen === "chart" && (
-            <CashFlowChart
-              records={filteredRecords}
-              periodLabel={periodLabel}
-            />
+            <div>
+              <div className="flex min-h-[11vh]">
+                <div>
+                  <div className="flex">
+                    <button
+                      className={`items-left border rounded text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === null && selectedMonth === null ? "bg-gray-300" : ""}`}
+                      onClick={() => {
+                        setSelectedYear(null);
+                        setSelectedMonth(null);
+                        setSelectedDay(null);
+                      }}
+                    >
+                      全期間
+                    </button>
+                    <div className="flex">
+                      {years.map((year) => {
+                        return (
+                          <button
+                            key={year}
+                            className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedYear === year ? "bg-gray-300" : ""}`}
+                            onClick={() => {
+                              setSelectedYear(year);
+                              setSelectedMonth(null);
+                              setSelectedDay(null);
+                            }}
+                          >
+                            {year}年
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="flex">
+                    {selectedYear !== null &&
+                      months.map((month) => {
+                        return (
+                          <button
+                            key={month}
+                            className={`border rounded flex items-left text-sm p-0.5 m-0.5 cursor-pointer ${selectedMonth === month ? "bg-gray-300" : ""}`}
+                            onClick={() => {
+                              setSelectedMonth(month);
+                              setSelectedDay(null);
+                            }}
+                          >
+                            {month}月
+                          </button>
+                        );
+                      })}
+                  </div>
+                </div>
+              </div>
+              <CashFlowChart
+                records={filteredRecords}
+                periodLabel={periodLabel}
+              />
+            </div>
           )}
           {/* ==============ハンド履歴============== */}
           {screen === "hand" && (
@@ -297,6 +349,9 @@ function App() {
         <button
           onClick={() => {
             setScreen("chart");
+            setSelectedYear(null);
+            setSelectedMonth(null);
+            setSelectedDay(null);
           }}
           className={`cursor-pointer ${screen === "chart" && "text-green-500"}`}
         >
