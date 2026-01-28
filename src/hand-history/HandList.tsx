@@ -13,6 +13,13 @@ export const HandList = ({
   onDeleteHand,
   toggleMemo,
 }: Props) => {
+  const splitFlop = (flop: string) => {
+    const result: string[] = [];
+    for (let i = 0; i < flop.length; i += 2) {
+      result.push(flop.slice(i, i + 2));
+    }
+    return result;
+  };
   return (
     <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
       {hands.map((hand: HandItem) => {
@@ -65,10 +72,23 @@ export const HandList = ({
                 </div>
                 {selectedMemoId === hand.id && (
                   <div className="items-left">
-                    <div className="flex gap-3 ml-3">
-                      <div>{hand.flop}</div>
-                      <div>{hand.turn}</div>
-                      <div>{hand.river}</div>
+                    <div className="flex gap-10 ml-3 mt-2 mb-4">
+                      <div className="flex gap-1">
+                        {splitFlop(hand.flop).map((f, i) => (
+                          <div
+                            key={i}
+                            className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center"
+                          >
+                            {f}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center">
+                        {hand.turn}
+                      </div>
+                      <div className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center">
+                        {hand.river}
+                      </div>
                     </div>
                     <div className="p-3 m-2 text-sm items-left border rounded-3xl">
                       {hand.memo}
