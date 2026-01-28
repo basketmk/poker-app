@@ -18,7 +18,7 @@ export const HandList = ({
       {hands.map((hand: HandItem) => {
         const isOpenMemo = selectedMemoId === hand.id;
         return (
-          <div className="border p-2 m-3">
+          <div key={hand.id} className="border p-2 m-3">
             <div className="flex items-center justify-between">
               <div className="flex p-2 m-2 items-center">
                 <div className="gap-4 flex">

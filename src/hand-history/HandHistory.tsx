@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TournamentList } from "./TournamentList";
 import { HandList } from "./HandList";
+import { HandForm } from "./HandForm";
 
 type Props = {
   tournaments: RecordItems[];
@@ -30,16 +31,6 @@ export const HandHistory = ({
     setSelectedMemoId((prev) => (prev === id ? null : id));
   };
 
-  const { register, handleSubmit, reset } = useForm<HandFormValue>({
-    defaultValues: {
-      heroPos: "",
-      heroHand: "",
-      vilianPos: "",
-      vilianHand: "",
-      memo: "",
-    },
-  });
-
   const onSubmit = (value: HandFormValue) => {
     if (selectedTournamentId === null) return;
 
@@ -65,7 +56,6 @@ export const HandHistory = ({
     };
 
     onAddHand(newHand);
-    reset();
     setIsFormOpen(false);
   };
 
@@ -114,68 +104,7 @@ export const HandHistory = ({
           </div>
         )}
         {/* ==============ハンド新規登録フォーム============== */}
-        {isFormOpen === true && (
-          <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-3">ハンド新規作成フォーム</div>
-            <div className="flex items-center justify-between">
-              <div className="gap-3 grid grid-cols-5">
-                <div>
-                  <div>(Heroポジション)</div>
-                  <input
-                    className="border w-full h-9 p-2 rounded-xl"
-                    type="text"
-                    placeholder="例) BTN"
-                    {...register("heroPos")}
-                  />
-                </div>
-                <div>
-                  <div>(Heroハンド)</div>
-                  <input
-                    className="border w-full h-9 p-2 rounded-xl"
-                    type="text"
-                    placeholder="例) AhQh"
-                    {...register("heroHand")}
-                  />
-                </div>
-                <div className="text-red-500 flex items-center justify-center">
-                  V S
-                </div>
-                <div>
-                  <div>(Vilianポジション)</div>
-                  <input
-                    className="border w-full h-9 p-3 rounded-xl"
-                    type="text"
-                    placeholder="例) BB"
-                    {...register("vilianPos")}
-                  />
-                </div>
-                <div>
-                  <div>(vilianハンド)</div>
-                  <input
-                    className="border w-full h-9 p-3 rounded-xl"
-                    type="text"
-                    placeholder="例) ThTs"
-                    {...register("vilianHand")}
-                  />
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="text-left mt-3 text-break p-2">メモ（任意）</div>
-              <textarea
-                className="items-left w-full border rounded-xl p-2"
-                rows={4}
-                {...register("memo")}
-              />
-            </div>
-            <button
-              type="submit"
-              className="ring rounded-xl min-w-full p-2 mt-4 bg-green-300 cursor-pointer"
-            >
-              登録する
-            </button>
-          </form>
-        )}
+        {isFormOpen === true && <HandForm onSubmit={onSubmit} />}
       </div>
       {/* ==============ハンド履歴============== */}
       {selectedTournament != null && (
