@@ -51,7 +51,7 @@ export const HandList = ({
                       })}
                     </div>
                   </div>
-                  <div className="text-red-500 flex items-center justify-center">
+                  <div className="text-red-500 flex items-center justify-center ml-7 mr-7">
                     V S
                   </div>
                   <div>
@@ -76,7 +76,7 @@ export const HandList = ({
                     </div>
                   </div>
                 </div>
-              </div>{" "}
+              </div>
               <button
                 className="pr-3 cursor-pointer"
                 onClick={() => onDeleteHand(hand)}

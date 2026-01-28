@@ -6,7 +6,12 @@ type Props = {
 };
 
 export const HandForm = ({ onSubmit }: Props) => {
-  const { register, handleSubmit, reset } = useForm<HandFormValue>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<HandFormValue>({
     defaultValues: {
       heroPos: "",
       heroHand: "",
@@ -77,8 +82,13 @@ export const HandForm = ({ onSubmit }: Props) => {
             className="border rounded-xl h-9 p-3"
             type="text"
             placeholder="例) KsJsJd"
-            {...register("flop")}
+            {...register("flop", {
+              maxLength: { value: 6, message: "Flopは6文字(3枚)までです" },
+            })}
           />
+          {errors.flop && (
+            <p className="text-sm text-red-500">{errors.flop.message}</p>
+          )}
         </div>
         <div>
           <div>(Turn)</div>
@@ -86,17 +96,28 @@ export const HandForm = ({ onSubmit }: Props) => {
             className="border rounded-xl h-9 p-3"
             type="text"
             placeholder="例) 3h"
-            {...register("turn")}
+            {...register("turn", {
+              maxLength: { value: 2, message: "Turnは2文字(1枚)までです" },
+            })}
           />
+          {errors.turn && (
+            <p className="text-sm text-red-500">{errors.turn.message}</p>
+          )}
         </div>
+
         <div>
           <div>(River)</div>
           <input
             className="border rounded-xl h-9 p-3"
             type="text"
             placeholder="例) 9h"
-            {...register("river")}
+            {...register("river", {
+              maxLength: { value: 2, message: "Riverは2文字(1枚)までです" },
+            })}
           />
+          {errors.river && (
+            <p className="text-sm text-red-500">{errors.river.message}</p>
+          )}
         </div>
       </div>
       <div>
