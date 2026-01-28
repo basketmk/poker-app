@@ -19,6 +19,10 @@ export type HandFormValue = {
   vilianPos: string;
   vilianHand: string;
   memo: string;
+  preflop: string;
+  flop: string;
+  turn: string;
+  river: string;
 };
 
 export type HandItem = {
@@ -29,4 +33,8 @@ export type HandItem = {
   vilianPos: string;
   vilianHand: string;
   memo: string;
+  preflop: string;
+  flop: string;
+  turn: string;
+  river: string;
 };

@@ -1,6 +1,5 @@
 import type { RecordItems, HandFormValue, HandItem } from "../types/type";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { TournamentList } from "./TournamentList";
 import { HandList } from "./HandList";
 import { HandForm } from "./HandForm";
@@ -39,6 +38,10 @@ export const HandHistory = ({
     const vilianPos = value.vilianPos.trim();
     const vilianHand = value.vilianHand.trim();
     const memo = value.memo.trim();
+    const preflop = heroHand;
+    const flop = value.flop.trim();
+    const turn = value.turn.trim();
+    const river = value.river.trim();
 
     if (!heroPos || !heroHand || !vilianPos) {
       alert("Heroポジション・Heroハンド・Vilianポジションを入力してください");
@@ -53,6 +56,10 @@ export const HandHistory = ({
       vilianPos,
       vilianHand,
       memo,
+      preflop,
+      flop,
+      turn,
+      river,
     };
 
     onAddHand(newHand);

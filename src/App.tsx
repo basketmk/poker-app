@@ -121,7 +121,7 @@ function App() {
     return JSON.parse(stored) as HandItem[];
   });
 
-  //==============ハンド追加関数==============
+  //===========ハンド追加関数===========
   const handleAddHand = (newHand: HandItem) => {
     setHands((prev) => {
       const newData = [newHand, ...prev];
@@ -130,7 +130,7 @@ function App() {
     });
   };
 
-  //==============ハンド削除関数==============
+  //===========ハンド削除関数===========
   const handleDeleteHand = (hand: HandItem) => {
     if (!confirm("ハンドを削除しますか？")) return;
 

@@ -53,7 +53,7 @@ export const HandList = ({
             {hand.memo && (
               <div className="">
                 <div className="flex items-left">
-                  <div className="ml-3">メモ</div>
+                  <div className="ml-3">詳細</div>
                   <button
                     className="ml-3 text-sm rounded-3xl cursor-pointer w-8 h-5"
                     onClick={() => {
@@ -65,6 +65,11 @@ export const HandList = ({
                 </div>
                 {selectedMemoId === hand.id && (
                   <div className="items-left">
+                    <div className="flex gap-3 ml-3">
+                      <div>{hand.flop}</div>
+                      <div>{hand.turn}</div>
+                      <div>{hand.river}</div>
+                    </div>
                     <div className="p-3 m-2 text-sm items-left border rounded-3xl">
                       {hand.memo}
                     </div>

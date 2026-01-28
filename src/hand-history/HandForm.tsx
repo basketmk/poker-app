@@ -13,6 +13,10 @@ export const HandForm = ({ onSubmit }: Props) => {
       vilianPos: "",
       vilianHand: "",
       memo: "",
+      preflop: "",
+      flop: "",
+      turn: "",
+      river: "",
     },
   });
 
@@ -64,6 +68,35 @@ export const HandForm = ({ onSubmit }: Props) => {
               {...register("vilianHand")}
             />
           </div>
+        </div>
+      </div>
+      <div className="flex grid grid-cols-3 mt-3">
+        <div>
+          <div>(Flop)</div>
+          <input
+            className="border rounded-xl h-9 p-3"
+            type="text"
+            placeholder="例) KsJsJd"
+            {...register("flop")}
+          />
+        </div>
+        <div>
+          <div>(Turn)</div>
+          <input
+            className="border rounded-xl h-9 p-3"
+            type="text"
+            placeholder="例) 3h"
+            {...register("turn")}
+          />
+        </div>
+        <div>
+          <div>(River)</div>
+          <input
+            className="border rounded-xl h-9 p-3"
+            type="text"
+            placeholder="例) 9h"
+            {...register("river")}
+          />
         </div>
       </div>
       <div>
