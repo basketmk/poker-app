@@ -13,7 +13,7 @@ export const HandList = ({
   onDeleteHand,
   toggleMemo,
 }: Props) => {
-  const splitFlop = (flop: string) => {
+  const splitCard = (flop: string) => {
     const result: string[] = [];
     for (let i = 0; i < flop.length; i += 2) {
       result.push(flop.slice(i, i + 2));
@@ -31,22 +31,48 @@ export const HandList = ({
                 <div className="gap-4 flex">
                   <div>
                     <div>(Heroポジション)</div>
-                    <div>{hand.heroPos}</div>
+                    <div className="flex items-center justify-center h-15">
+                      {hand.heroPos}
+                    </div>
                   </div>
                   <div>
                     <div>(Heroハンド)</div>
-                    <div>{hand.heroHand}</div>
+                    <div className="flex gap-1">
+                      {splitCard(hand.heroHand).map((h, i) => {
+                        return (
+                          <div
+                            className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center"
+                            key={i}
+                          >
+                            {h}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                   <div className="text-red-500 flex items-center justify-center">
                     V S
                   </div>
                   <div>
                     <div>(Vilianポジション)</div>
-                    <div>{hand.vilianPos}</div>
+                    <div className="flex items-center justify-center h-15">
+                      {hand.vilianPos}
+                    </div>
                   </div>
                   <div>
                     <div>(vilianハンド)</div>
-                    <div>{hand.vilianHand}</div>
+                    <div className="flex gap-1">
+                      {splitCard(hand.vilianHand).map((h, i) => {
+                        return (
+                          <div
+                            key={i}
+                            className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center"
+                          >
+                            {h}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>{" "}
@@ -72,9 +98,10 @@ export const HandList = ({
                 </div>
                 {selectedMemoId === hand.id && (
                   <div className="items-left">
+                    <div>ボード</div>
                     <div className="flex gap-10 ml-3 mt-2 mb-4">
                       <div className="flex gap-1">
-                        {splitFlop(hand.flop).map((f, i) => (
+                        {splitCard(hand.flop).map((f, i) => (
                           <div
                             key={i}
                             className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center"
