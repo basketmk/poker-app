@@ -5,7 +5,7 @@ import { Summary } from "./components/Summary";
 import type { RecordItems, HandItem } from "./types/type";
 import { RecordForm } from "./components/RecordForm";
 import { CashFlowChart } from "./components/CashFlowChart";
-import { HandHistory } from "./components/HandHistory";
+import { HandHistory } from "./hand-history/HandHistory";
 
 function App() {
   const STORAGE_KEY = "poker_record";

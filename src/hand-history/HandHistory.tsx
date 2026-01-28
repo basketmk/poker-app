@@ -1,6 +1,7 @@
 import type { RecordItems, HandFormValue, HandItem } from "../types/type";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { TournamentList } from "./TournamentList";
 
 type Props = {
   tournaments: RecordItems[];
@@ -70,21 +71,10 @@ export const HandHistory = ({
   //==============トーナメント未選択時==============
   if (selectedTournamentId === null) {
     return (
-      <div className="h-[90vh]">
-        <div className="text-xl font-bold p-3">トーナメント一覧</div>
-        <div className="h-[75vh] overflow-y-auto overscroll-contain">
-          {tournaments.map((tournament) => (
-            <button
-              className="flex items-center justify-between border rounded-xl p-3 mt-3 w-full cursor-pointer"
-              onClick={() => setTournamentId(tournament.id)}
-              key={tournament.id}
-            >
-              <div>{tournament.date}</div>
-              <div>{tournament.name}</div>
-            </button>
-          ))}
-        </div>
-      </div>
+      <TournamentList
+        tournaments={tournaments}
+        onSelectTournament={setTournamentId}
+      />
     );
   }
 
