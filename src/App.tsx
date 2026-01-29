@@ -161,7 +161,7 @@ function App() {
         {(screen === "home" || screen === "tmList" || screen === "form") && (
           <div>
             <div className="pb-1 pt-1 flex items-center justify-center">
-              {periodLabel}
+              【{periodLabel}】
             </div>
             <Summary records={filteredRecords} exchange={exchangeMoney} />
 

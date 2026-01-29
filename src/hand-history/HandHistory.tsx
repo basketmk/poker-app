@@ -42,6 +42,8 @@ export const HandHistory = ({
     const flop = value.flop.trim();
     const turn = value.turn.trim();
     const river = value.river.trim();
+    const blind = value.blind.trim();
+    const stack = Number(value.stack.trim());
 
     if (!heroPos || !heroHand || !vilianPos) {
       alert("Heroポジション・Heroハンド・Vilianポジションを入力してください");
@@ -60,6 +62,8 @@ export const HandHistory = ({
       flop,
       turn,
       river,
+      blind,
+      stack,
     };
 
     onAddHand(newHand);

@@ -47,7 +47,7 @@ export const CashFlowChart = ({ records, periodLabel }: Props) => {
 
   return (
     <div className="h-[40vh] w-full">
-      <div>{periodLabel}</div>
+      <div>【{periodLabel}】</div>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={cumulativeData}

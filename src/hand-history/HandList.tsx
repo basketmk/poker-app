@@ -99,7 +99,21 @@ export const HandList = ({
               {selectedMemoId === hand.id && (
                 <div className="items-left">
                   <div className="flex">
-                    <div className="ml-5 mr-3 mt-2 mb-4 h-15 w-15 flex items-center justify-center">
+                    <div className="ml-5 mr-3 mt-2 w-15 h-10 flex items-center justify-center">
+                      blind
+                    </div>
+                    <div className="mr-3 mt-2 w-15 h-10 flex items-center justify-center">
+                      {hand.blind}
+                    </div>
+                    <div className="ml-5 mr-3 mt-2 w-15 h-10 flex items-center justify-center">
+                      myStack
+                    </div>
+                    <div className="mr-3 mt-2 w-15 h-10 flex items-center justify-center">
+                      {hand.stack}
+                    </div>
+                  </div>
+                  <div className="flex">
+                    <div className="ml-5 mr-3 mt-2 h-15 w-15 flex items-center justify-center">
                       ボード
                     </div>
                     <div className="flex gap-10 ml-3 mt-2 mb-4">
