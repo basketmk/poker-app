@@ -104,9 +104,11 @@ export const HandList = ({
                     <div className="ml-5 mr-3 mt-2 w-15 h-10 flex items-center justify-center">
                       blind
                     </div>
-                    <div className="mr-3 mt-2 w-15 h-10 flex items-center justify-center">
-                      {hand.blindSB}/{hand.blindBB}
-                    </div>
+                    {hand.blindSB > 0 && hand.blindBB > 0 && (
+                      <div className="mr-3 mt-2 w-15 h-10 flex items-center justify-center">
+                        {hand.blindSB}/{hand.blindBB}
+                      </div>
+                    )}
                     <div className="ml-5 mr-3 mt-2 w-15 h-10 flex items-center justify-center">
                       myStack
                     </div>
