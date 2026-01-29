@@ -22,7 +22,8 @@ export const HandForm = ({ onSubmit }: Props) => {
       flop: "",
       turn: "",
       river: "",
-      blind: "",
+      blindSB: "",
+      blindBB: "",
       stack: "",
     },
   });
@@ -35,13 +36,22 @@ export const HandForm = ({ onSubmit }: Props) => {
     <form className="p-3" onSubmit={handleSubmit(submit)}>
       <div className="mb-3">ハンド新規作成フォーム</div>
       <div className="flex items-center items-left w-full gap-3">
-        <div className="w-[19%]">
+        <div className="w-[25%]">
           <div>(blind)</div>
-          <input
-            className="border rounded-xl h-9 w-full p-2"
-            placeholder="例) 600/1200"
-            {...register("blind")}
-          />
+          <div className="flex gap-2">
+            <div className="h-9 flex items-center justify-center">SB</div>
+            <input
+              className="border rounded-xl h-9 w-full p-2"
+              placeholder="例) 600"
+              {...register("blindSB")}
+            />
+            <div className="h-9 flex items-center justify-center">BB</div>
+            <input
+              className="border rounded-xl h-9 w-full p-2"
+              placeholder="例) 1200"
+              {...register("blindBB")}
+            />
+          </div>
         </div>
         <div className="w-[19%]">
           <div>(myStack)</div>

@@ -96,14 +96,14 @@ export const HandList = ({
                   {isOpenMemo ? "▲" : "▼"}
                 </button>
               </div>
-              {selectedMemoId === hand.id && (
+              {isOpenMemo && (
                 <div className="items-left">
                   <div className="flex">
                     <div className="ml-5 mr-3 mt-2 w-15 h-10 flex items-center justify-center">
                       blind
                     </div>
                     <div className="mr-3 mt-2 w-15 h-10 flex items-center justify-center">
-                      {hand.blind}
+                      {hand.blindSB}/{hand.blindBB}
                     </div>
                     <div className="ml-5 mr-3 mt-2 w-15 h-10 flex items-center justify-center">
                       myStack
