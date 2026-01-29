@@ -28,6 +28,19 @@ export const HandForm = ({ onSubmit }: Props) => {
     },
   });
 
+  const position: string[] = [
+    "",
+    "UTG",
+    "UTG+1",
+    "MP",
+    "MP+1",
+    "HJ",
+    "CO",
+    "BTN",
+    "SB",
+    "BB",
+  ];
+
   const submit = (value: HandFormValue) => {
     onSubmit(value);
     reset();
@@ -35,30 +48,46 @@ export const HandForm = ({ onSubmit }: Props) => {
   return (
     <form className="p-3" onSubmit={handleSubmit(submit)}>
       <div className="mb-3">ハンド新規作成フォーム</div>
-      <div className="flex items-center items-left w-full gap-3">
-        <div className="w-[25%]">
+      <div className="flex items-center items-left w-full gap-5 h-12 mb-5">
+        <div className="w-[28%]">
           <div>(blind)</div>
           <div className="flex gap-2">
-            <div className="h-9 flex items-center justify-center">SB</div>
-            <input
-              className="border rounded-xl h-9 w-full p-2"
-              type="number"
-              placeholder="例) 600"
-              {...register("blindSB")}
-            />
-            <div className="h-9 flex items-center justify-center">BB</div>
-            <input
-              className="border rounded-xl h-9 w-full p-2"
-              type="number"
-              placeholder="例) 1200"
-              {...register("blindBB")}
-            />
+            <div className="flex items-center justify-center">SB</div>
+            <div>
+              <input
+                className="border rounded-xl w-full p-2"
+                type="number"
+                placeholder="例) 600"
+                {...register("blindSB", {
+                  valueAsNumber: true,
+                  required: "入力してください",
+                })}
+              />
+              {errors.blindSB && (
+                <p className="text-xs text-red-500">{errors.blindSB.message}</p>
+              )}
+            </div>
+            <div className="flex items-center justify-center">BB</div>
+            <div>
+              <input
+                className="border rounded-xl w-full p-2"
+                type="number"
+                placeholder="例) 1200"
+                {...register("blindBB", {
+                  valueAsNumber: true,
+                  required: "入力してください",
+                })}
+              />
+              {errors.blindBB && (
+                <p className="text-xs text-red-500">{errors.blindBB.message}</p>
+              )}
+            </div>
           </div>
         </div>
-        <div className="w-[19%]">
+        <div className="w-[15%]">
           <div>(myStack)</div>
           <input
-            className="border rounded-xl h-9 w-full p-2"
+            className="border rounded-xl w-full p-2"
             placeholder="例) 65000"
             type="number"
             {...register("stack")}
@@ -69,17 +98,19 @@ export const HandForm = ({ onSubmit }: Props) => {
         <div className="gap-3 grid grid-cols-5">
           <div>
             <div>(Heroポジション)</div>
-            <input
-              className="border w-full h-9 p-2 rounded-xl"
-              type="text"
-              placeholder="例) BTN"
+            <select
+              className="border w-full h-9 pl-2 rounded-xl"
               {...register("heroPos")}
-            />
+            >
+              {position.map((p) => (
+                <option key={p}>{p}</option>
+              ))}
+            </select>
           </div>
           <div>
             <div>(Heroハンド)</div>
             <input
-              className="border w-full h-9 p-2 rounded-xl"
+              className="border w-full p-2 h-9 rounded-xl"
               type="text"
               maxLength={4}
               placeholder="例) AhQh"
@@ -99,18 +130,21 @@ export const HandForm = ({ onSubmit }: Props) => {
           </div>
           <div>
             <div>(Villainポジション)</div>
-            <input
-              className="border w-full h-9 p-3 rounded-xl"
-              type="text"
-              placeholder="例) BB"
+            <select
+              className="border w-full h-9 pl-2 rounded-xl flex items-center justify-center"
               {...register("villainPos")}
-            />
+            >
+              {position.map((p) => (
+                <option key={p}>{p}</option>
+              ))}
+            </select>
           </div>
           <div>
             <div>(villainハンド)</div>
             <input
-              className="border w-full h-9 p-3 rounded-xl"
+              className="border w-full h-9 p-3 rounded-xl flex items-center justify-center"
               type="text"
+              maxLength={4}
               placeholder="例) ThTs"
               {...register("villainHand")}
             />

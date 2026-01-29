@@ -46,8 +46,8 @@ export const HandHistory = ({
     const blindBB = value.blindBB;
     const stack = value.stack;
 
-    if (!heroPos || !villainPos) {
-      alert("Heroポジション・Villainポジションを入力してください");
+    if (!heroPos || !heroHand) {
+      alert("Heroポジション・Heroハンドを入力してください");
       return;
     }
 
