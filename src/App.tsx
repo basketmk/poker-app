@@ -119,7 +119,7 @@ function App() {
 
   console.log(usdJpyRate);
 
-  const USD_to_JPY = 158.5;
+  const USD_to_JPY = usdJpyRate?.toFixed(2);
 
   const exchangeMoney = (USD: number) => {
     const isMinus = USD < 0;
