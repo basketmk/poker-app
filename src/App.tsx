@@ -112,13 +112,11 @@ function App() {
     return data.rates.JPY;
   };
 
-  useEffect(() => {
-    const fetchRateData = async () => {
-      const rate = await getJpyExchangeRate(exchangeRateURL);
-      setUsdJpyRate(rate);
-    };
-    fetchRateData();
-  }, []);
+  const handdleFetchRate = async () => {
+    const rate = await getJpyExchangeRate(exchangeRateURL);
+    setUsdJpyRate(rate);
+  };
+
   console.log(usdJpyRate);
 
   const USD_to_JPY = 158.5;
@@ -167,14 +165,27 @@ function App() {
           <h1 className="flex items-center justify-center text-xl">
             ポーカー収支管理アプリ
           </h1>
-          <div className="flex items-center justify-end gap-1 text-sm">
-            <p className="pb-1">円表示(USD/JPY {USD_to_JPY})</p>
-            <input
-              className="ml-1 w-3 h-3"
-              type="checkbox"
-              checked={isJPY}
-              onChange={(e) => setIsJPY(e.target.checked)}
-            ></input>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center justify-end gap-1 text-sm">
+              <div className="text-sm">レート更新</div>
+              <button
+                className="ml-1 rounded cursor-pointer text-xl"
+                onClick={() => handdleFetchRate()}
+              >
+                🔄
+              </button>
+            </div>
+            <div>
+              <div className="flex items-center justify-end gap-1 text-sm">
+                <p className="pb-1">円表示(USD/JPY {USD_to_JPY})</p>
+                <input
+                  className="ml-1 w-3 h-3"
+                  type="checkbox"
+                  checked={isJPY}
+                  onChange={(e) => setIsJPY(e.target.checked)}
+                ></input>
+              </div>
+            </div>
           </div>
         </div>
         {(screen === "home" || screen === "tmList" || screen === "form") && (
