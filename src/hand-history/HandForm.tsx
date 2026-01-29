@@ -15,8 +15,8 @@ export const HandForm = ({ onSubmit }: Props) => {
     defaultValues: {
       heroPos: "",
       heroHand: "",
-      vilianPos: "",
-      vilianHand: "",
+      villainPos: "",
+      villainHand: "",
       memo: "",
       preflop: "",
       flop: "",
@@ -68,29 +68,38 @@ export const HandForm = ({ onSubmit }: Props) => {
             <input
               className="border w-full h-9 p-2 rounded-xl"
               type="text"
+              maxLength={4}
               placeholder="例) AhQh"
-              {...register("heroHand")}
+              {...register("heroHand", {
+                minLength: {
+                  value: 4,
+                  message: "ハンドは4文字(2枚)で入力してください",
+                },
+              })}
             />
+            {errors.heroHand && (
+              <p className="text-xs text-red-500">{errors.heroHand.message}</p>
+            )}
           </div>
           <div className="text-red-500 flex items-center justify-center">
             V S
           </div>
           <div>
-            <div>(Vilianポジション)</div>
+            <div>(Villainポジション)</div>
             <input
               className="border w-full h-9 p-3 rounded-xl"
               type="text"
               placeholder="例) BB"
-              {...register("vilianPos")}
+              {...register("villainPos")}
             />
           </div>
           <div>
-            <div>(vilianハンド)</div>
+            <div>(villainハンド)</div>
             <input
               className="border w-full h-9 p-3 rounded-xl"
               type="text"
               placeholder="例) ThTs"
-              {...register("vilianHand")}
+              {...register("villainHand")}
             />
           </div>
         </div>

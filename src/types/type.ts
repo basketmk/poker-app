@@ -16,8 +16,8 @@ export type FormValues = {
 export type HandFormValue = {
   heroPos: string;
   heroHand: string;
-  vilianPos: string;
-  vilianHand: string;
+  villainPos: string;
+  villainHand: string;
   memo: string;
   preflop: string;
   flop: string;
@@ -32,8 +32,8 @@ export type HandItem = {
   tournamentId: string;
   heroPos: string;
   heroHand: string;
-  vilianPos: string;
-  vilianHand: string;
+  villainPos: string;
+  villainHand: string;
   memo: string;
   preflop: string;
   flop: string;

@@ -55,15 +55,15 @@ export const HandList = ({
                     V S
                   </div>
                   <div>
-                    <div>(Vilianポジション)</div>
+                    <div>(Villainポジション)</div>
                     <div className="flex items-center justify-center h-15">
-                      {hand.vilianPos}
+                      {hand.villainPos}
                     </div>
                   </div>
                   <div>
-                    <div>(vilianハンド)</div>
+                    <div>(villainハンド)</div>
                     <div className="flex gap-1">
-                      {splitCard(hand.vilianHand).map((h, i) => {
+                      {splitCard(hand.villainHand).map((h, i) => {
                         return (
                           <div
                             key={i}
@@ -108,9 +108,11 @@ export const HandList = ({
                     <div className="ml-5 mr-3 mt-2 w-15 h-10 flex items-center justify-center">
                       myStack
                     </div>
-                    <div className="mr-3 mt-2 w-15 h-10 flex items-center justify-center">
-                      {hand.stack}
-                    </div>
+                    {hand.stack > 0 && (
+                      <div className="mr-3 mt-2 w-15 h-10 flex items-center justify-center">
+                        {hand.stack}
+                      </div>
+                    )}
                   </div>
                   <div className="flex">
                     <div className="ml-5 mr-3 mt-2 h-15 w-15 flex items-center justify-center">
@@ -144,11 +146,11 @@ export const HandList = ({
                     </div>
                   </div>
                   {hand.memo && (
-                    <div className="flex mt-3">
+                    <div className="flex mt-3 w-full">
                       <div className="ml-5 mr-3 mt-2 mb-4 h-15 w-15 flex items-center justify-center">
                         メモ
                       </div>
-                      <div className="p-3 ml-3 mr-10 text-sm items-left border rounded-3xl w-full">
+                      <div className="p-3 ml-3 mr-10 text-sm items-left border rounded-3xl w-[80%] text-pretty">
                         {hand.memo}
                       </div>
                     </div>

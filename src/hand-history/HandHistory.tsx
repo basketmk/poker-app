@@ -35,8 +35,8 @@ export const HandHistory = ({
 
     const heroPos = value.heroPos.trim();
     const heroHand = value.heroHand.trim();
-    const vilianPos = value.vilianPos.trim();
-    const vilianHand = value.vilianHand.trim();
+    const villainPos = value.villainPos.trim();
+    const villainHand = value.villainHand.trim();
     const memo = value.memo.trim();
     const preflop = heroHand;
     const flop = value.flop.trim();
@@ -45,8 +45,8 @@ export const HandHistory = ({
     const blind = value.blind.trim();
     const stack = Number(value.stack.trim());
 
-    if (!heroPos || !heroHand || !vilianPos) {
-      alert("Heroポジション・Heroハンド・Vilianポジションを入力してください");
+    if (!heroPos || !villainPos) {
+      alert("Heroポジション・Villainポジションを入力してください");
       return;
     }
 
@@ -55,8 +55,8 @@ export const HandHistory = ({
       tournamentId: selectedTournamentId,
       heroPos,
       heroHand,
-      vilianPos,
-      vilianHand,
+      villainPos,
+      villainHand,
       memo,
       preflop,
       flop,
