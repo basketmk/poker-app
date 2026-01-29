@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 
 type Props = {
   onSubmit: (value: HandFormValue) => void;
+  tableSize?: 6 | 9;
 };
 
-export const HandForm = ({ onSubmit }: Props) => {
+export const HandForm = ({ onSubmit, tableSize }: Props) => {
   const {
     register,
     handleSubmit,
@@ -41,6 +42,7 @@ export const HandForm = ({ onSubmit }: Props) => {
     "BB",
   ];
   const positions6Max: string[] = ["", "UTG", "MP", "CO", "BTN", "SB", "BB"];
+  const positions = tableSize === 9 ? positions9Max : positions6Max;
 
   const submit = (value: HandFormValue) => {
     onSubmit(value);
@@ -103,7 +105,7 @@ export const HandForm = ({ onSubmit }: Props) => {
               className="border w-full h-9 pl-2 rounded-xl"
               {...register("heroPos")}
             >
-              {positions6Max.map((p) => (
+              {positions.map((p) => (
                 <option key={p}>{p}</option>
               ))}
             </select>
@@ -135,7 +137,7 @@ export const HandForm = ({ onSubmit }: Props) => {
               className="border w-full h-9 pl-2 rounded-xl flex items-center justify-center"
               {...register("villainPos")}
             >
-              {positions6Max.map((p) => (
+              {positions.map((p) => (
                 <option key={p}>{p}</option>
               ))}
             </select>

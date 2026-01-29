@@ -117,7 +117,12 @@ export const HandHistory = ({
           </div>
         )}
         {/* ==============ハンド新規登録フォーム============== */}
-        {isFormOpen === true && <HandForm onSubmit={onSubmit} />}
+        {isFormOpen === true && (
+          <HandForm
+            onSubmit={onSubmit}
+            tableSize={selectedTournament?.tableSize}
+          />
+        )}
       </div>
       {/* ==============ハンド履歴============== */}
       {selectedTournament != null && (
