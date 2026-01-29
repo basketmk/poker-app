@@ -23,9 +23,9 @@ export type HandFormValue = {
   flop: string;
   turn: string;
   river: string;
-  blindSB: string;
-  blindBB: string;
-  stack: string;
+  blindSB: number;
+  blindBB: number;
+  stack: number;
 };
 
 export type HandItem = {

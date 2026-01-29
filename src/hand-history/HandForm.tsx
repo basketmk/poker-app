@@ -22,9 +22,9 @@ export const HandForm = ({ onSubmit }: Props) => {
       flop: "",
       turn: "",
       river: "",
-      blindSB: "",
-      blindBB: "",
-      stack: "",
+      blindSB: undefined,
+      blindBB: undefined,
+      stack: undefined,
     },
   });
 
@@ -42,12 +42,14 @@ export const HandForm = ({ onSubmit }: Props) => {
             <div className="h-9 flex items-center justify-center">SB</div>
             <input
               className="border rounded-xl h-9 w-full p-2"
+              type="number"
               placeholder="例) 600"
               {...register("blindSB")}
             />
             <div className="h-9 flex items-center justify-center">BB</div>
             <input
               className="border rounded-xl h-9 w-full p-2"
+              type="number"
               placeholder="例) 1200"
               {...register("blindBB")}
             />
@@ -58,6 +60,7 @@ export const HandForm = ({ onSubmit }: Props) => {
           <input
             className="border rounded-xl h-9 w-full p-2"
             placeholder="例) 65000"
+            type="number"
             {...register("stack")}
           />
         </div>

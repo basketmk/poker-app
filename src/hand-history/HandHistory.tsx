@@ -42,9 +42,9 @@ export const HandHistory = ({
     const flop = value.flop.trim();
     const turn = value.turn.trim();
     const river = value.river.trim();
-    const blindSB = Number(value.blindSB.trim());
-    const blindBB = Number(value.blindBB.trim());
-    const stack = Number(value.stack.trim());
+    const blindSB = value.blindSB;
+    const blindBB = value.blindBB;
+    const stack = value.stack;
 
     if (!heroPos || !villainPos) {
       alert("Heroポジション・Villainポジションを入力してください");
