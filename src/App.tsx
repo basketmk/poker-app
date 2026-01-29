@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { RecordList } from "./components/RecordList";
 import { Summary } from "./components/Summary";
-import type { RecordItems, HandItem } from "./types/type";
+import type { RecordItems, HandItem, FxRatesApiResponse } from "./types/type";
 import { RecordForm } from "./components/RecordForm";
 import { CashFlowChart } from "./components/CashFlowChart";
 import { HandHistory } from "./hand-history/HandHistory";
@@ -102,6 +102,25 @@ function App() {
 
   //==============円表示==============
   const [isJPY, setIsJPY] = useState<true | false>(false);
+  const [usdJpyRate, setUsdJpyRate] = useState<number | null>(null);
+  //
+  const exchangeRateURL = "https://api.fxratesapi.com/latest";
+  //===========外部APIから為替レート入手===========
+  const getJpyExchangeRate = async (url: string) => {
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.rates.JPY;
+  };
+
+  useEffect(() => {
+    const fetchRateData = async () => {
+      const rate = await getJpyExchangeRate(exchangeRateURL);
+      setUsdJpyRate(rate);
+    };
+    fetchRateData();
+  }, []);
+  console.log(usdJpyRate);
+
   const USD_to_JPY = 158.5;
 
   const exchangeMoney = (USD: number) => {

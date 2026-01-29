@@ -46,3 +46,7 @@ export type HandItem = {
   blindBB: number;
   stack: number;
 };
+
+export type FxRatesApiResponse = {
+  rates: { JPY: number };
+};
