@@ -5,12 +5,18 @@ import { useForm } from "react-hook-form";
 type Props = { onAdd: (newRecord: RecordItems) => void };
 
 export const RecordForm = ({ onAdd }: Props) => {
-  const { register, handleSubmit, reset } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({
     defaultValues: {
       date: new Date().toISOString().slice(0, 10),
       name: "",
       buyIn: "",
       buyOut: "",
+      tableSize: undefined,
     },
   });
   const onSubmit = (values: FormValues) => {
@@ -18,6 +24,7 @@ export const RecordForm = ({ onAdd }: Props) => {
     const buyOutNum = Number(values.buyOut);
     const date = values.date.trim();
     const name = values.name.trim();
+    const tableSize = values.tableSize;
     if (!date || !name) return;
     if (Number.isNaN(buyInNum) || Number.isNaN(buyOutNum)) return;
 
@@ -27,10 +34,12 @@ export const RecordForm = ({ onAdd }: Props) => {
       name: name,
       buyIn: buyInNum,
       buyOut: buyOutNum,
+      tableSize: tableSize,
     };
     onAdd(newRecord);
     reset();
   };
+  const numTableSize: number[] = [6, 9];
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="">
@@ -40,11 +49,33 @@ export const RecordForm = ({ onAdd }: Props) => {
         className="text-left ring rounded-xl p-2 min-w-full"
         {...register("date")}
       />
-      <p className="text-left p-2">トーナメント名</p>
-      <input
-        className="text-left ring rounded-xl p-2 min-w-full"
-        {...register("name")}
-      />
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <p className="text-left p-2">トーナメント名</p>
+          <input
+            className="text-left ring rounded-xl p-2 min-w-full"
+            {...register("name")}
+          />
+        </div>
+        <div className="">
+          <p className="p-2 text-left">テーブル人数</p>
+          <select
+            className="w-full border rounded-xl h-10 pl-3"
+            {...register("tableSize", {
+              valueAsNumber: true,
+              required: "選択してください",
+            })}
+          >
+            <option value="">選択</option>
+            {numTableSize.map((n) => (
+              <option key={n}>{n}</option>
+            ))}
+          </select>
+          {errors.tableSize && (
+            <p className="text-sm text-red-500">{errors.tableSize.message}</p>
+          )}
+        </div>
+      </div>
       <div className="grid grid-cols-2 gap-3">
         <div className="text-left">
           <p className="text-left p-2">Buy-in (USD)</p>

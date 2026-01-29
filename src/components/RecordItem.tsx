@@ -21,6 +21,7 @@ export const RecordItem = ({ record, onDelete, exchange }: Props) => {
           {isITM && (
             <p className="rounded text-xs ring ring-black px-1 py-0.5">ITM</p>
           )}
+          <p className="text-sm">{record.tableSize}Max</p>
         </div>
         <p>{record.name}</p>
         <div className="grid grid-cols-3">

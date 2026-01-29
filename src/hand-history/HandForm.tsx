@@ -28,7 +28,7 @@ export const HandForm = ({ onSubmit }: Props) => {
     },
   });
 
-  const position: string[] = [
+  const positions9Max: string[] = [
     "",
     "UTG",
     "UTG+1",
@@ -40,6 +40,7 @@ export const HandForm = ({ onSubmit }: Props) => {
     "SB",
     "BB",
   ];
+  const positions6Max: string[] = ["", "UTG", "MP", "CO", "BTN", "SB", "BB"];
 
   const submit = (value: HandFormValue) => {
     onSubmit(value);
@@ -102,7 +103,7 @@ export const HandForm = ({ onSubmit }: Props) => {
               className="border w-full h-9 pl-2 rounded-xl"
               {...register("heroPos")}
             >
-              {position.map((p) => (
+              {positions6Max.map((p) => (
                 <option key={p}>{p}</option>
               ))}
             </select>
@@ -134,7 +135,7 @@ export const HandForm = ({ onSubmit }: Props) => {
               className="border w-full h-9 pl-2 rounded-xl flex items-center justify-center"
               {...register("villainPos")}
             >
-              {position.map((p) => (
+              {positions6Max.map((p) => (
                 <option key={p}>{p}</option>
               ))}
             </select>

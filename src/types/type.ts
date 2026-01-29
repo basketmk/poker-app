@@ -4,6 +4,7 @@ export type RecordItems = {
   name: string;
   buyIn: number;
   buyOut: number;
+  tableSize: number;
 };
 
 export type FormValues = {
@@ -11,6 +12,7 @@ export type FormValues = {
   name: string;
   buyIn: string;
   buyOut: string;
+  tableSize: number;
 };
 
 export type HandFormValue = {
