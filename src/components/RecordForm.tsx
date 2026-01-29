@@ -47,15 +47,18 @@ export const RecordForm = ({ onAdd }: Props) => {
       <input
         type="date"
         className="text-left ring rounded-xl p-2 min-w-full"
-        {...register("date")}
+        {...register("date", { required: "入力してください" })}
       />
       <div className="grid grid-cols-2 gap-3">
         <div>
           <p className="text-left p-2">トーナメント名</p>
           <input
             className="text-left ring rounded-xl p-2 min-w-full"
-            {...register("name")}
+            {...register("name", { required: "入力してください" })}
           />
+          {errors.name && (
+            <p className="text-sm text-red-500">{errors.name.message}</p>
+          )}
         </div>
         <div className="">
           <p className="p-2 text-left">テーブル人数</p>

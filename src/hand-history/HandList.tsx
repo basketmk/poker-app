@@ -25,6 +25,9 @@ export const HandList = ({
     <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
       {hands.map((hand: HandItem) => {
         const isOpenMemo = selectedMemoId === hand.id;
+        {
+          /*---BB計算。後々ハンドそのもとにもたせるか */
+        }
         const stackBB = (hand.stack / hand.blindBB).toFixed(1);
         return (
           <div key={hand.id} className="border p-2 m-3">
@@ -154,7 +157,7 @@ export const HandList = ({
                       <div className="ml-5 mr-3 mt-2 mb-4 h-15 w-15 flex items-center justify-center">
                         メモ
                       </div>
-                      <div className="p-3 ml-3 mr-10 text-sm items-left border rounded-3xl w-[80%] text-pretty">
+                      <div className="p-3 ml-3 mr-10 text-sm text-left border rounded-3xl w-[80%] whitespace-pre-wrap">
                         {hand.memo}
                       </div>
                     </div>
