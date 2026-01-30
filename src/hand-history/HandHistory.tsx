@@ -45,6 +45,7 @@ export const HandHistory = ({
     const blindSB = value.blindSB;
     const blindBB = value.blindBB;
     const stack = value.stack;
+    const result = value.result;
 
     if (!heroPos || !heroHand) {
       alert("Heroポジション・Heroハンドを入力してください");
@@ -66,6 +67,7 @@ export const HandHistory = ({
       blindSB,
       blindBB,
       stack,
+      result,
     };
 
     onAddHand(newHand);

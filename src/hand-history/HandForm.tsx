@@ -26,6 +26,7 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
       blindSB: undefined,
       blindBB: undefined,
       stack: undefined,
+      result: "",
     },
   });
 
@@ -43,6 +44,8 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
   ];
   const positions6Max: string[] = ["", "UTG", "MP", "CO", "BTN", "SB", "BB"];
   const positions = tableSize === 9 ? positions9Max : positions6Max;
+
+  const results = ["WIN", "LOSE", "CHOP"];
 
   const submit = (value: HandFormValue) => {
     onSubmit(value);
@@ -128,8 +131,21 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
               <p className="text-xs text-red-500">{errors.heroHand.message}</p>
             )}
           </div>
-          <div className="text-red-500 flex items-center justify-center">
-            V S
+          <div>
+            <div className="text-red-500 flex items-center justify-center">
+              V S
+            </div>
+            <select
+              className="border pl-2 h-9 rounded-xl"
+              {...register("result")}
+            >
+              <option value="">選択</option>
+              {results.map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <div>(Villainポジション)</div>

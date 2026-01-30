@@ -71,7 +71,9 @@ export const RecordForm = ({ onAdd }: Props) => {
           >
             <option value="">選択してください</option>
             {numTableSize.map((n) => (
-              <option key={n}>{n}</option>
+              <option key={n} value={n}>
+                {n}人
+              </option>
             ))}
           </select>
           {errors.tableSize && (

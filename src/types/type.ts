@@ -28,6 +28,7 @@ export type HandFormValue = {
   blindSB: number;
   blindBB: number;
   stack: number;
+  result: "WIN" | "LOSE" | "CHOP";
 };
 
 export type HandItem = {
@@ -45,6 +46,7 @@ export type HandItem = {
   blindSB: number;
   blindBB: number;
   stack: number;
+  result: "WIN" | "LOSE" | "CHOP";
 };
 
 export type FxRatesApiResponse = {
