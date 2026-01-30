@@ -136,8 +136,8 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
               V S
             </div>
             <select
-              className="border pl-2 h-9 rounded-xl"
-              {...register("result")}
+              className="border pl-1 h-9 rounded-xl"
+              {...register("result", { required: "選択してください" })}
             >
               <option value="">選択</option>
               {results.map((r) => (
@@ -146,6 +146,9 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
                 </option>
               ))}
             </select>
+            {errors.result && (
+              <p className="text-xs text-red-500">{errors.result.message}</p>
+            )}
           </div>
           <div>
             <div>(Villainポジション)</div>
