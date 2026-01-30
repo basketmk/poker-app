@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import { RecordList } from "./components/RecordList";
 import { Summary } from "./components/Summary";
@@ -102,13 +102,15 @@ function App() {
 
   //==============円表示==============
   const [isJPY, setIsJPY] = useState<true | false>(false);
-  const [usdJpyRate, setUsdJpyRate] = useState<number | null>(null);
-  //
+
+  //===外部APIから為替レート入手===
+  const [usdJpyRate, setUsdJpyRate] = useState<number>(158.5);
+
   const exchangeRateURL = "https://api.fxratesapi.com/latest";
-  //===========外部APIから為替レート入手===========
+
   const getJpyExchangeRate = async (url: string) => {
     const res = await fetch(url);
-    const data = await res.json();
+    const data = (await res.json()) as FxRatesApiResponse;
     return data.rates.JPY;
   };
 
@@ -116,10 +118,9 @@ function App() {
     const rate = await getJpyExchangeRate(exchangeRateURL);
     setUsdJpyRate(rate);
   };
-
   console.log(usdJpyRate);
 
-  const USD_to_JPY = usdJpyRate?.toFixed(2);
+  const USD_to_JPY: number = Number(usdJpyRate?.toFixed(2));
 
   const exchangeMoney = (USD: number) => {
     const isMinus = USD < 0;
@@ -400,7 +401,12 @@ function App() {
         </button>
         <button
           className={`cursor-pointer ${screen === "hand" && "text-green-500"}`}
-          onClick={() => setScreen("hand")}
+          onClick={() => {
+            setScreen("hand");
+            setSelectedYear(null);
+            setSelectedMonth(null);
+            setSelectedDay(null);
+          }}
         >
           ハンド履歴
         </button>

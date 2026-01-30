@@ -18,6 +18,7 @@ export const TournamentList = ({ tournaments, onSelectTournament }: Props) => {
           >
             <div>{tournament.date}</div>
             <div>{tournament.name}</div>
+            <div>{tournament.tableSize}Max</div>
           </button>
         ))}
       </div>
