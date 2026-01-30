@@ -27,7 +27,8 @@ export const HandList = ({
   const totalLose = hands.filter((h) => h.result === "LOSE").length;
   const totalChop = hands.filter((h) => h.result === "CHOP").length;
 
-  const winRate = totalHands ? Math.round(totalWin / totalHands) : 0;
+  const winRate =
+    totalHands > 0 ? Math.round((totalWin / totalHands) * 100) : 0;
 
   return (
     <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
@@ -53,7 +54,8 @@ export const HandList = ({
         {
           /*---BB計算。後々ハンドそのもとにもたせるか */
         }
-        const stackBB = (hand.stack / hand.blindBB).toFixed(1);
+        const stackBB =
+          hand.blindBB > 0 ? (hand.stack / hand.blindBB).toFixed(1) : "";
         return (
           <div key={hand.id} className={`border p-2 m-3 ${resultBg}`}>
             <div className="flex items-center justify-between">
