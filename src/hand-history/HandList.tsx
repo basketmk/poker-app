@@ -21,8 +21,23 @@ export const HandList = ({
     return result;
   };
 
+  //----------ハンド勝率集計----------
+  const totalHands = hands.length;
+  const totalWin = hands.filter((h) => h.result === "WIN").length;
+  const totalLose = hands.filter((h) => h.result === "LOSE").length;
+  const totalChop = hands.filter((h) => h.result === "CHOP").length;
+
+  const winRate = Math.round(totalWin / totalHands);
+
   return (
     <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
+      <div className="flex gap-5">
+        <div>ハンド数: {totalHands}</div>
+        <div className="text-green-600">WIN: {totalWin}</div>
+        <div className="text-red-600">LOSE: {totalLose}</div>
+        <div className="text-gray-600">CHOP: {totalChop}</div>
+        <div>勝率: {winRate}%</div>
+      </div>
       {hands.map((hand: HandItem) => {
         const isOpenMemo = selectedMemoId === hand.id;
         const resultWin = hand.result === "WIN";
