@@ -27,7 +27,7 @@ export const HandList = ({
   const totalLose = hands.filter((h) => h.result === "LOSE").length;
   const totalChop = hands.filter((h) => h.result === "CHOP").length;
 
-  const winRate = Math.round(totalWin / totalHands);
+  const winRate = totalHands ? Math.round(totalWin / totalHands) : 0;
 
   return (
     <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
