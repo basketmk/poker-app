@@ -117,10 +117,15 @@ function App() {
   };
 
   const handleFetchRate = async () => {
-    setRateMessage("...取得しています");
-    const rate = await getJpyExchangeRate(exchangeRateURL);
-    setUsdJpyRate(rate);
-    setRateMessage(`最終更新${new Date().toLocaleString("ja-JP")}`);
+    try {
+      setRateMessage("...取得しています");
+      const rate = await getJpyExchangeRate(exchangeRateURL);
+      setUsdJpyRate(rate);
+      setRateMessage(`✅最終更新${new Date().toLocaleString("ja-JP")}`);
+    } catch {
+      setUsdJpyRate(defaultRate);
+      setRateMessage("❌取得失敗：固定レートで表示します");
+    }
   };
 
   const USD_to_JPY: number = Number(usdJpyRate?.toFixed(2));
