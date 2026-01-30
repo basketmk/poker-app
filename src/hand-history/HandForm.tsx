@@ -26,7 +26,7 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
       blindSB: undefined,
       blindBB: undefined,
       stack: undefined,
-      result: "",
+      result: undefined,
     },
   });
 

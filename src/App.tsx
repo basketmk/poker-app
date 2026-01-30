@@ -104,7 +104,9 @@ function App() {
   const [isJPY, setIsJPY] = useState<true | false>(false);
 
   //===外部APIから為替レート入手===
-  const [usdJpyRate, setUsdJpyRate] = useState<number>(158.5);
+  const defaultRate = 158.5;
+  const [usdJpyRate, setUsdJpyRate] = useState<number>(defaultRate);
+  const [rateMessage, setRateMessage] = useState<string>("");
 
   const exchangeRateURL = "https://api.fxratesapi.com/latest";
 
@@ -114,11 +116,12 @@ function App() {
     return data.rates.JPY;
   };
 
-  const handdleFetchRate = async () => {
+  const handleFetchRate = async () => {
+    setRateMessage("...取得しています");
     const rate = await getJpyExchangeRate(exchangeRateURL);
     setUsdJpyRate(rate);
+    setRateMessage(`最終更新${new Date().toLocaleString("ja-JP")}`);
   };
-  console.log(usdJpyRate);
 
   const USD_to_JPY: number = Number(usdJpyRate?.toFixed(2));
 
@@ -171,10 +174,11 @@ function App() {
               <div className="text-sm">レート更新</div>
               <button
                 className="ml-1 rounded cursor-pointer text-xl"
-                onClick={() => handdleFetchRate()}
+                onClick={() => handleFetchRate()}
               >
                 🔄
               </button>
+              <div>{rateMessage}</div>
             </div>
             <div>
               <div className="flex items-center justify-end gap-1 text-sm">
