@@ -12,24 +12,29 @@ type Props = {
 export const RecordItem = ({ record, onDelete, exchange, onUpdate }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [draftBuyOut, setDraftBuyOut] = useState<string>("");
+  const [draftName, setDraftName] = useState<string>("");
 
   //===履歴編集用===
   const startEdit = () => {
     setIsEditing(true);
     setDraftBuyOut(String(record.buyOut));
+    setDraftName(record.name);
   };
 
   //===履歴編集キャンセル用===
   const cancelEdit = () => {
     setIsEditing(false);
     setDraftBuyOut(String(record.buyOut));
+    setDraftName(record.name);
   };
 
   //===履歴保存用===
   const saveBuyOut = () => {
     const buyOutNum = Number(draftBuyOut);
+    const name = draftName.trim();
     if (Number.isNaN(buyOutNum) || buyOutNum < 0) return;
-    onUpdate({ ...record, buyOut: buyOutNum });
+    if (!name) return;
+    onUpdate({ ...record, name: name, buyOut: buyOutNum });
     setIsEditing(false);
   };
 
@@ -47,7 +52,15 @@ export const RecordItem = ({ record, onDelete, exchange, onUpdate }: Props) => {
           <p className="text-sm">{record.tableSize}Max</p>
           {isEditing && <div className="text-xs text-blue-600">編集中...</div>}
         </div>
-        <p>{record.name}</p>
+        {!isEditing ? (
+          <p>{record.name}</p>
+        ) : (
+          <input
+            className="border pl-1 rounded ml-1 mt-1 w-[30%]"
+            value={draftName}
+            onChange={(e) => setDraftName(e.target.value)}
+          />
+        )}
         <div className="grid grid-cols-3">
           <div className="text-left text-sm flex">
             <p>Buy-in:</p>
