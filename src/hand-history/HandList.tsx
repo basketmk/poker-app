@@ -32,7 +32,10 @@ export const HandList = ({
 
   //----------HeroPos別フィルター----------
   const [selectedHeroPos, setSelectedHeroPos] = useState<string>("ALL");
-  const PosFilteredHands = hands.filter((h) => h.heroPos === selectedHeroPos);
+  const posFilteredHands =
+    selectedHeroPos === "ALL"
+      ? hands
+      : hands.filter((h) => h.heroPos === selectedHeroPos);
   const filteredHeroPos = Array.from(new Set(hands.map((h) => h.heroPos)));
 
   return (
@@ -47,7 +50,11 @@ export const HandList = ({
         </div>
         <div className="flex gap-3 mr-3">
           <div>HEROポジション</div>
-          <select className="border w-15">
+          <select
+            className="border w-15"
+            value={selectedHeroPos}
+            onChange={(e) => setSelectedHeroPos(e.target.value)}
+          >
             <option value="ALL">ALL</option>
             {filteredHeroPos.map((pos) => (
               <option key={pos} className="">
@@ -57,7 +64,7 @@ export const HandList = ({
           </select>
         </div>
       </div>
-      {hands.map((hand: HandItem) => {
+      {posFilteredHands.map((hand: HandItem) => {
         const isOpenMemo = selectedMemoId === hand.id;
         const resultWin = hand.result === "WIN";
         const resultLose = hand.result === "LOSE";
