@@ -46,6 +46,10 @@ export const HandHistory = ({
     const blindBB = value.blindBB;
     const stack = value.stack;
     const result = value.result;
+    const preflopAction = value.preflopAction.trim();
+    const flopAction = value.flopAction.trim();
+    const turnAction = value.turnAction.trim();
+    const riverAction = value.riverAction.trim();
 
     if (!heroPos || !heroHand) {
       alert("Heroポジション・Heroハンドを入力してください");
@@ -68,6 +72,10 @@ export const HandHistory = ({
       blindBB,
       stack,
       result,
+      preflopAction,
+      flopAction,
+      turnAction,
+      riverAction,
     };
 
     onAddHand(newHand);

@@ -164,8 +164,8 @@ export const HandList = ({
                         {hand.blindSB}/{hand.blindBB}
                       </div>
                     )}
-                    <div className="ml-5 mr-3 mt-2 w-15 h-10 flex items-center justify-center">
-                      myStack
+                    <div className="ml-5 mr-1 mt-2 w-12 h-10 flex items-center justify-center">
+                      ES
                     </div>
                     {hand.stack > 0 && (
                       <div className="mr-3 mt-2 h-10 flex items-center justify-center">
@@ -201,6 +201,32 @@ export const HandList = ({
                       </div>
                       <div className="border rounded-sm text-sm w-10 h-15 flex items-center justify-center">
                         {hand.river}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-4 w-full text-left h-30">
+                    <div className="border-r ml-3">
+                      <div>プリフロップ</div>
+                      <div className="whitespace-pre-wrap mt-2">
+                        {hand.preflopAction}
+                      </div>
+                    </div>
+                    <div className="border-r ml-3">
+                      <div>フロップ</div>
+                      <div className="whitespace-pre-wrap mt-2">
+                        {hand.flopAction}
+                      </div>
+                    </div>
+                    <div className="border-r ml-3">
+                      <div>ターン</div>
+                      <div className="whitespace-pre-wrap mt-2">
+                        {hand.turnAction}
+                      </div>
+                    </div>
+                    <div className="ml-3">
+                      <div className="">リバー</div>
+                      <div className="whitespace-pre-wrap mt-2">
+                        {hand.riverAction}
                       </div>
                     </div>
                   </div>

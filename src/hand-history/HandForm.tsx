@@ -98,7 +98,7 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
           </div>
         </div>
         <div className="w-[15%]">
-          <div>(myStack)</div>
+          <div>(ES)</div>
           <input
             className="border rounded-xl w-full p-2"
             placeholder="例) 65000"
@@ -230,8 +230,9 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
           <div>Preflop アクション</div>
           <textarea
             className="border rounded-xl p-2 w-full"
-            rows={1}
-            placeholder="例）HJ open 2.5 / H BTN call"
+            rows={2}
+            placeholder="例）UTG r2.5bb
+       BTN c"
             {...register("preflopAction")}
           />
         </div>
@@ -239,8 +240,8 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
           <div>Flop アクション</div>
           <textarea
             className="border rounded-xl p-2 w-full"
-            rows={1}
-            placeholder="例）V check / H check"
+            rows={2}
+            placeholder="例）××"
             {...register("flopAction")}
           />
         </div>
@@ -248,8 +249,9 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
           <div>Turn アクション</div>
           <textarea
             className="border rounded-xl p-2 w-full"
-            rows={1}
-            placeholder="例）V bet 1.8 / H call"
+            rows={2}
+            placeholder="例）hero ×/c 
+       BTN 3bb"
             {...register("turnAction")}
           />
         </div>
@@ -257,8 +259,9 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
           <div>River アクション</div>
           <textarea
             className="border rounded-xl p-2 w-full"
-            rows={1}
-            placeholder="例）V bet 7.5 / H BTN fald"
+            rows={2}
+            placeholder="例）hero c/f
+       BTN 5bb"
             {...register("riverAction")}
           />
         </div>
