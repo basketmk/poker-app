@@ -8,11 +8,30 @@ type Props = {
   onUpdate: (record: RecordItems) => void;
 };
 
-{
-  /* ==============履歴一覧用==============*/
-}
+//==============履歴一覧用==============
 export const RecordItem = ({ record, onDelete, exchange, onUpdate }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [draftBuyOut, setDraftBuyOut] = useState<string>("");
+
+  //===履歴編集用===
+  const startEdit = () => {
+    setIsEditing(true);
+    setDraftBuyOut(String(record.buyOut));
+  };
+
+  //===履歴編集キャンセル用===
+  const cancelEdit = () => {
+    setIsEditing(false);
+    setDraftBuyOut(String(record.buyOut));
+  };
+
+  //===履歴保存用===
+  const saveBuyOut = () => {
+    const buyOutNum = Number(draftBuyOut);
+    if (Number.isNaN(buyOutNum) || buyOutNum < 0) return;
+    onUpdate({ ...record, buyOut: buyOutNum });
+    setIsEditing(false);
+  };
 
   const profit = record.buyOut - record.buyIn;
   const isITM: boolean = record.buyOut > 0;
@@ -36,13 +55,23 @@ export const RecordItem = ({ record, onDelete, exchange, onUpdate }: Props) => {
           </div>
           <div className="text-left text-sm flex">
             <p>Buy-out:</p>
-            <p
-              className={`pl-1 ${
-                record.buyOut > 0 ? "text-green-500" : "text-black"
-              }`}
-            >
-              {exchange(record.buyOut)}
-            </p>
+            {!isEditing ? (
+              <p
+                className={`pl-1 ${
+                  record.buyOut > 0 ? "text-green-500" : "text-black"
+                }`}
+              >
+                {exchange(record.buyOut)}
+              </p>
+            ) : (
+              <input
+                className="border pl-1 rounded ml-1 w-[20%]"
+                inputMode="numeric"
+                value={draftBuyOut}
+                onChange={(e) => setDraftBuyOut(e.target.value)}
+                placeholder="0"
+              />
+            )}
           </div>
           <div className="items-center">
             <div className="text-left text-sm flex">
@@ -68,18 +97,27 @@ export const RecordItem = ({ record, onDelete, exchange, onUpdate }: Props) => {
           <button
             type="button"
             className="text-sm border rounded px-2 py-1 cursor-pointer"
-            onClick={() => setIsEditing(true)}
+            onClick={startEdit}
           >
             編集
           </button>
         ) : (
-          <button
-            type="button"
-            className="text-sm border rounded px-2 py-1 cursor-pointer"
-            onClick={() => setIsEditing(false)}
-          >
-            戻る
-          </button>
+          <div className="flex flex-col gap-1">
+            <button
+              type="button"
+              className="text-sm border rounded px-2 py-1 cursor-pointer"
+              onClick={saveBuyOut}
+            >
+              保存
+            </button>
+            <button
+              type="button"
+              className="text-sm border rounded px-2 py-1 cursor-pointer"
+              onClick={cancelEdit}
+            >
+              取消
+            </button>
+          </div>
         )}
       </div>
       {/* ==============削除ボタン============== */}

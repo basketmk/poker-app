@@ -47,6 +47,15 @@ function App() {
     setScreen("tmList");
   };
 
+  //==============トーナメント編集用==============
+  const handleUpdate = (updated: RecordItems) => {
+    setRecords((prev) => {
+      const update = prev.map((r) => (r.id === updated.id ? updated : r));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(update));
+      return update;
+    });
+  };
+
   //==============Stateで画面遷移==============
   type Screen = "tmList" | "form" | "chart" | "home" | "hand";
   const [screen, setScreen] = useState<Screen>("home");
@@ -307,6 +316,7 @@ function App() {
                 records={filteredRecords}
                 onDelete={handleDelete}
                 exchange={exchangeMoney}
+                onUpdate={handleUpdate}
               />
             </div>
           )}
