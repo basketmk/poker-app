@@ -22,14 +22,6 @@ export const HandList = ({
     return result;
   };
 
-  //----------ハンド勝率集計----------
-  const totalHands = hands.length;
-  const totalWin = hands.filter((h) => h.result === "WIN").length;
-  const totalLose = hands.filter((h) => h.result === "LOSE").length;
-  const totalChop = hands.filter((h) => h.result === "CHOP").length;
-  const winRate =
-    totalHands > 0 ? Math.round((totalWin / totalHands) * 100) : 0;
-
   //----------HeroPos別フィルター----------
   const [selectedHeroPos, setSelectedHeroPos] = useState<string>("ALL");
   const posFilteredHands =
@@ -37,6 +29,14 @@ export const HandList = ({
       ? hands
       : hands.filter((h) => h.heroPos === selectedHeroPos);
   const filteredHeroPos = Array.from(new Set(hands.map((h) => h.heroPos)));
+
+  //----------ハンド勝率集計----------
+  const totalHands = posFilteredHands.length;
+  const totalWin = posFilteredHands.filter((h) => h.result === "WIN").length;
+  const totalLose = posFilteredHands.filter((h) => h.result === "LOSE").length;
+  const totalChop = posFilteredHands.filter((h) => h.result === "CHOP").length;
+  const winRate =
+    totalHands > 0 ? Math.round((totalWin / totalHands) * 100) : 0;
 
   return (
     <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
@@ -51,7 +51,7 @@ export const HandList = ({
         <div className="flex gap-3 mr-3">
           <div>HEROポジション</div>
           <select
-            className="border w-15"
+            className="border w-25"
             value={selectedHeroPos}
             onChange={(e) => setSelectedHeroPos(e.target.value)}
           >
