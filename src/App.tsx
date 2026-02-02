@@ -139,14 +139,16 @@ function App() {
 
   const USD_to_JPY: number = Number(usdJpyRate?.toFixed(2));
 
+  const formatNum = (n: number) => n.toLocaleString();
+
   const exchangeMoney = (USD: number) => {
     const isMinus = USD < 0;
     const n = Math.abs(USD);
     if (isJPY) {
       const JPY = Math.round(n * USD_to_JPY);
-      return isMinus ? `-￥${JPY}` : `￥${JPY}`;
+      return isMinus ? `-￥${formatNum(JPY)}` : `￥${formatNum(JPY)}`;
     }
-    return isMinus ? `-$${n}` : `$${n}`;
+    return isMinus ? `-$${formatNum(n)}` : `$${formatNum(n)}`;
   };
 
   //==============ハンド履歴に用いる==============
