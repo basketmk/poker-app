@@ -30,9 +30,10 @@ export const HandList = ({
   const winRate =
     totalHands > 0 ? Math.round((totalWin / totalHands) * 100) : 0;
 
-  //----------HeroPos別----------
-  const [selectedHeroPos, setSelectedHeroPos] = useState<string>("");
+  //----------HeroPos別フィルター----------
+  const [selectedHeroPos, setSelectedHeroPos] = useState<string>("ALL");
   const PosFilteredHands = hands.filter((h) => h.heroPos === selectedHeroPos);
+  const filteredHeroPos = Array.from(new Set(hands.map((h) => h.heroPos)));
 
   return (
     <div className="flex-1 overflow-y-auto overscroll-contain p-3 w-full">
@@ -47,8 +48,11 @@ export const HandList = ({
         <div className="flex gap-3 mr-3">
           <div>HEROポジション</div>
           <select className="border w-15">
-            {hands.map((h) => (
-              <option className="">{h.heroPos}</option>
+            <option value="ALL">ALL</option>
+            {filteredHeroPos.map((pos) => (
+              <option key={pos} className="">
+                {pos}
+              </option>
             ))}
           </select>
         </div>
