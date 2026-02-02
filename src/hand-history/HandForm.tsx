@@ -27,6 +27,10 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
       blindBB: undefined,
       stack: undefined,
       result: undefined,
+      preflopAction: "",
+      flopAction: "",
+      turnAction: "",
+      riverAction: "",
     },
   });
 
@@ -52,7 +56,10 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
     reset();
   };
   return (
-    <form className="p-3" onSubmit={handleSubmit(submit)}>
+    <form
+      className="p-3 flex-1 overflow-y-auto overscroll-contain h-[60%]"
+      onSubmit={handleSubmit(submit)}
+    >
       <div className="mb-3">ハンド新規作成フォーム</div>
       <div className="flex items-center items-left w-full gap-5 h-12 mb-5">
         <div className="w-[28%]">
@@ -216,6 +223,44 @@ export const HandForm = ({ onSubmit, tableSize }: Props) => {
           {errors.river && (
             <p className="text-sm text-red-500">{errors.river.message}</p>
           )}
+        </div>
+      </div>
+      <div className="mt-3">
+        <div className="">
+          <div>Preflop アクション</div>
+          <textarea
+            className="border rounded-xl p-2 w-full"
+            rows={1}
+            placeholder="例）HJ open 2.5 / H BTN call"
+            {...register("preflopAction")}
+          />
+        </div>
+        <div className="">
+          <div>Flop アクション</div>
+          <textarea
+            className="border rounded-xl p-2 w-full"
+            rows={1}
+            placeholder="例）V check / H check"
+            {...register("flopAction")}
+          />
+        </div>
+        <div className="">
+          <div>Turn アクション</div>
+          <textarea
+            className="border rounded-xl p-2 w-full"
+            rows={1}
+            placeholder="例）V bet 1.8 / H call"
+            {...register("turnAction")}
+          />
+        </div>
+        <div className="">
+          <div>River アクション</div>
+          <textarea
+            className="border rounded-xl p-2 w-full"
+            rows={1}
+            placeholder="例）V bet 7.5 / H BTN fald"
+            {...register("riverAction")}
+          />
         </div>
       </div>
       <div>

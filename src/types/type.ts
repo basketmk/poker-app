@@ -29,6 +29,10 @@ export type HandFormValue = {
   blindBB: number;
   stack: number;
   result: "WIN" | "LOSE" | "CHOP";
+  preflopAction: string;
+  flopAction: string;
+  turnAction: string;
+  riverAction: string;
 };
 
 export type HandItem = {
@@ -47,6 +51,10 @@ export type HandItem = {
   blindBB: number;
   stack: number;
   result: "WIN" | "LOSE" | "CHOP";
+  preflopAction: string;
+  flopAction: string;
+  turnAction: string;
+  riverAction: string;
 };
 
 export type FxRatesApiResponse = {
