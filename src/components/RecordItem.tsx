@@ -1,15 +1,19 @@
 import type { RecordItems } from "../types/type";
+import { useState } from "react";
 
 type Props = {
   record: RecordItems;
   onDelete: (record: RecordItems) => void;
   exchange: (money: number) => string;
+  onUpdate: (record: RecordItems) => void;
 };
 
 {
   /* ==============履歴一覧用==============*/
 }
-export const RecordItem = ({ record, onDelete, exchange }: Props) => {
+export const RecordItem = ({ record, onDelete, exchange, onUpdate }: Props) => {
+  const [isEditing, setIsEditing] = useState(false);
+
   const profit = record.buyOut - record.buyIn;
   const isITM: boolean = record.buyOut > 0;
   return (
@@ -58,11 +62,31 @@ export const RecordItem = ({ record, onDelete, exchange }: Props) => {
           </div>
         </div>
       </div>
+      <div>
+        {!isEditing ? (
+          <button
+            type="button"
+            className="text-sm border rounded px-2 py-1 cursor-pointer"
+            onClick={() => setIsEditing(true)}
+          >
+            編集
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="text-sm border rounded px-2 py-1 cursor-pointer"
+            onClick={() => setIsEditing(false)}
+          >
+            戻る
+          </button>
+        )}
+      </div>
       {/* ==============削除ボタン============== */}
       <button
         type="button"
-        className="shrink-0 text-xl leading-none cursor-pointer"
+        className="text-xl leading-none cursor-pointer"
         onClick={() => onDelete(record)}
+        disabled={isEditing} // 誤爆防止（好み）
       >
         ×
       </button>

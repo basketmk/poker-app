@@ -14,7 +14,7 @@ export const RecordList = ({ records, onDelete, exchange }: Props) => {
         <RecordItem
           key={record.id}
           record={record}
-          onDelete={() => onDelete(record)}
+          onDelete={onDelete}
           exchange={exchange}
         />
       ))}
